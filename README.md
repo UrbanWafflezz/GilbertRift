@@ -58,21 +58,21 @@ Gilbert Rift is a feature-rich native desktop workspace designed to keep ambitio
 3. Open the DMG and drag **Gilbert Rift** into **Applications**.
 4. Launch Gilbert Rift and sign in.
 
-> **Early access:** Version 0.1.0 is built for Apple Silicon Macs running macOS 13 or newer. The current public build is ad-hoc signed and is not yet Apple-notarized. If macOS shows an unidentified-developer warning, Control-click **Gilbert Rift** in Applications, choose **Open**, then confirm.
+> **Early access:** Version 0.2.0 is built for Apple Silicon Macs running macOS 13 or newer. The current public build is ad-hoc signed and is not yet Apple-notarized. If macOS shows an unidentified-developer warning, Control-click **Gilbert Rift** in Applications, choose **Open**, then confirm.
 
-## Version 0.1.0
+## Version 0.2.0
 
-The first public release establishes the complete Gilbert Rift desktop experience:
+Version 0.2.0 adds the signed Gilbert Rift update channel:
 
-- Native Apple Silicon macOS application
-- Email/password and provider-ready authentication
-- Gilbert Chat and project-aware Work sessions
-- Plan, Goal, approval, terminal, Git, file, and attachment workflows
-- Messages, friends, notifications, workspaces, and communities
-- Scheduling, settings, usage, storage, and provider management
-- Generated images, previews, dictation, and native desktop integrations
+- Updates control in the left rail
+- In-app release notes and version details
+- Signed background downloads and verified installation
+- Automatic app restart after installation
+- Latest frontend and trusted local backend improvements
 
-See the [v0.1.0 release](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.1.0) for the download, installation notes, and SHA-256 checksum.
+Users on 0.1.0 need to install 0.2.0 manually once. Later releases can be installed directly inside Gilbert Rift.
+
+See the [v0.2.0 release](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.2.0) for the download, installation notes, updater assets, and SHA-256 checksum.
 
 ## Release-only repository
 
