@@ -69,6 +69,7 @@ jobs:
           path: Backend
           ref: ${{ inputs.backend_ref }}
           repository: UrbanWafflezz/GilbertRift-Backend
+          ssh-key: ${{ secrets.BACKEND_DEPLOY_KEY }}
           persist-credentials: false
 
       - name: Set up Node.js
