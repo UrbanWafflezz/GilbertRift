@@ -1,87 +1,153 @@
 <div align="center">
 
-# Gilbert Rift
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/gilbert-rift-logo-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/gilbert-rift-logo-light.png">
+  <img alt="Gilbert Rift" src=".github/assets/gilbert-rift-logo-light.png" width="680">
+</picture>
 
-### Your AI workspace, built for macOS.
+### AI work that can actually work with your project.
 
-Bring AI-assisted work, projects, conversations, communities, and collaboration together in one focused desktop app.
+Code, investigate, review, collaborate, and keep the work around your work in one focused macOS app.
 
 [![Latest Release](https://img.shields.io/github/v/release/UrbanWafflezz/GilbertRift?style=for-the-badge&label=Latest)](https://github.com/UrbanWafflezz/GilbertRift/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/UrbanWafflezz/GilbertRift/total?style=for-the-badge)](https://github.com/UrbanWafflezz/GilbertRift/releases)
+[![Total Downloads](https://img.shields.io/github/downloads/UrbanWafflezz/GilbertRift/total?style=for-the-badge&label=Downloads)](https://github.com/UrbanWafflezz/GilbertRift/releases)
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?style=for-the-badge&logo=apple)
-![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-arm64-2563EB?style=for-the-badge)
+![Apple Silicon + Intel](https://img.shields.io/badge/Mac-Apple%20Silicon%20%2B%20Intel-2563EB?style=for-the-badge)
 
-[Download the latest release](https://github.com/UrbanWafflezz/GilbertRift/releases/latest)
+[![Download for Apple Silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.2.2/Gilbert-Rift-0.2.2-aarch64.dmg)
+[![Download for Intel Mac](https://img.shields.io/badge/Download-Intel%20Mac-6E56CF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.2.2/Gilbert-Rift-0.2.2-x64.dmg)
+
+**Current release: 0.2.2 · macOS 13 Ventura or later**
 
 </div>
 
----
+![Gilbert Rift Work screen showing a new AI coding task](.github/assets/screenshots/work-new-task.png)
 
-## One place to think, build, and collaborate
+<div align="center"><sub>Actual Gilbert Rift 0.2.2 interface running on macOS.</sub></div>
 
-Gilbert Rift is a feature-rich native desktop workspace designed to keep ambitious work moving without scattering it across disconnected tools. It combines provider-backed AI conversations, project-aware work sessions, planning, local development tools, collaboration, and personal organization in a polished macOS experience.
+## One app for the whole arc of the work
 
-## Highlights
+Gilbert Rift is a desktop workspace for turning an idea into finished work without constantly
+jumping between an AI chat, terminal, project browser, task tracker, messages, and team tools. Work
+sessions stay grounded in a real project and keep the model, permission level, files, tool activity,
+progress, and follow-ups visible in one place.
 
-### AI that works with your projects
+| Build with context                                                                                           | Stay in control                                                                                 |
+| ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| Give an AI runtime an approved project, attach files, inspect changes, and continue the same task over time. | Choose the provider, model, reasoning level, task mode, and access profile before work begins.  |
+| Follow terminal activity, file reads, diffs, Git state, plans, and task progress in the timeline.            | Use approval-first, managed approval, or full-access profiles with explicit project boundaries. |
 
-- Run project-aware Work sessions with real files, tools, terminal activity, diffs, and Git workflows.
-- Use planning, goals, approvals, follow-up questions, retries, and long-running task activity.
-- Connect supported AI runtimes including Codex, Claude, and OpenCode.
-- Keep model selection, provider status, usage, and permissions visible and under your control.
+## See Gilbert Rift in action
 
-### A complete communication workspace
+<table>
+  <tr>
+    <td width="50%">
+      <img src=".github/assets/screenshots/tools-catalog.png" alt="Gilbert Rift extensions catalog with plugins, MCP servers, skills, and guidance">
+      <br>
+      <sub><b>Bring your tools with you.</b> Discover plugins, inspect MCP servers, manage skills, and keep project guidance close to the work.</sub>
+    </td>
+    <td width="50%">
+      <img src=".github/assets/screenshots/community-discovery.png" alt="Gilbert Rift community discovery screen">
+      <br>
+      <sub><b>Build with people, too.</b> Communities connect conversations, channels, members, projects, events, polls, and planning.</sub>
+    </td>
+  </tr>
+</table>
 
-- Organize direct messages, friends, notifications, workspaces, and communities.
-- Create channels, posts, projects, polls, events, calendars, member roles, and community plans.
-- Share files, images, audio, and video through live collaboration surfaces.
-- Stay informed with native macOS notifications and dock badges.
+## What you can do
 
-### Rich creative and productivity tools
+### Work with AI on real projects
 
-- Generate, review, zoom, iterate on, and save AI-created images.
-- Attach documents and images to conversations and project work.
-- Use dictation across chat composers with native microphone and speech-recognition support.
-- Schedule recurring work and reconnect to task progress without losing context.
+- Start **Build**, **Investigate**, or **Review** tasks from a project-aware composer.
+- Use Agent, Plan, Goal, or Goal + Plan modes for quick changes or work that spans multiple turns.
+- Review tool activity, terminal output, file changes, Git status, progress steps, and generated images
+  without losing the conversation that produced them.
+- Queue follow-ups while work is running, stop or retry a response, and return to long-running tasks
+  later.
 
-### Desktop-first by design
+### Choose the runtime that fits the job
 
-- Native macOS window behavior, appearance-aware icons, deep links, notifications, and launch settings.
-- Account-scoped local data and project access.
-- A trusted local backend keeps provider credentials and session tokens out of the webview.
-- Granular permission profiles help you decide how much access each task receives.
+- Connect supported OpenAI Codex, Anthropic Claude, OpenCode Zen, and OpenRouter runtimes.
+- Discover compatible local LM Studio and Ollama servers on your device or private network.
+- Select models, reasoning effort, permissions, and project scope per task instead of accepting a
+  hidden global default.
+
+### Keep collaboration beside the code
+
+- Use direct and group messages with replies, reactions, attachments, voice notes, and presence.
+- Create communities with channels, members, events, polls, planner boards, and linked projects.
+- Organize workspaces, approvals, notifications, schedules, and recurring AI work from the same app.
+
+### Feel at home on macOS
+
+- Native window behavior, appearance-aware icons, notifications, deep links, dock badges, and launch
+  settings.
+- A trusted local backend keeps provider credentials and session tokens outside the webview.
+- Account-scoped local project data and explicit permission profiles keep access understandable.
+- Signed and verified in-app update packages make later releases available inside Gilbert Rift.
 
 ## Download and install
 
-1. Open the [latest release](https://github.com/UrbanWafflezz/GilbertRift/releases/latest).
-2. Download the Apple Silicon DMG.
-3. Open the DMG and drag **Gilbert Rift** into **Applications**.
-4. Launch Gilbert Rift and sign in.
+| Your Mac                                 | Download                                                                                                                                     |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Apple silicon — M1, M2, M3, M4, or newer | [Gilbert Rift 0.2.2 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.2.2/Gilbert-Rift-0.2.2-aarch64.dmg) |
+| Intel processor                          | [Gilbert Rift 0.2.2 for Intel Mac](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.2.2/Gilbert-Rift-0.2.2-x64.dmg)         |
 
-> **Early access:** Version 0.2.0 is built for Apple Silicon Macs running macOS 13 or newer. The current public build is ad-hoc signed and is not yet Apple-notarized. If macOS shows an unidentified-developer warning, Control-click **Gilbert Rift** in Applications, choose **Open**, then confirm.
+1. Download the DMG for your Mac.
+2. Open the DMG and drag **Gilbert Rift** into **Applications**.
+3. Open **Applications**, then launch Gilbert Rift.
+4. Sign in and connect the AI provider you want to use.
 
-## Version 0.2.0
+> [!IMPORTANT]
+> **Early-access signing notice**
+>
+> Gilbert Rift is not currently signed with an Apple Developer ID or notarized by Apple. Signing and
+> notarization are planned for a near-future release. Until then, macOS may block the first launch or
+> show an unidentified-developer warning.
+>
+> If that happens, open **System Settings → Privacy & Security**, find the message about Gilbert Rift,
+> choose **Open Anyway**, and confirm. Apple documents this process in
+> [Open apps safely on your Mac](https://support.apple.com/102445). Only install builds downloaded from
+> this official repository. In-app update packages are separately signed and verified; that updater
+> signature is not the same as Apple Developer ID signing or notarization.
 
-Version 0.2.0 adds the signed Gilbert Rift update channel:
+## Current release · 0.2.2
 
-- Updates control in the left rail
-- In-app release notes and version details
-- Signed background downloads and verified installation
-- Automatic app restart after installation
-- Latest frontend and trusted local backend improvements
+Gilbert Rift 0.2.2 improves long conversations, task lists, notifications, files, and image
+performance. It also repairs expired OpenAI connection handling in the plugin catalog and strengthens
+macOS window lifecycle and WebKit behavior.
 
-Users on 0.1.0 need to install 0.2.0 manually once. Later releases can be installed directly inside Gilbert Rift.
+[Read the 0.2.2 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.2.2) ·
+[Browse every release](https://github.com/UrbanWafflezz/GilbertRift/releases)
 
-See the [v0.2.0 release](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.2.0) for the download, installation notes, updater assets, and SHA-256 checksum.
+Users coming from 0.1.0 need to install a current build manually once. After that, Gilbert Rift can
+check for and install verified updates from inside the app.
 
-## Release-only repository
+## Requirements
 
-This repository is the official distribution home for Gilbert Rift releases. Application source code is not published here. Download builds only from the [Releases](https://github.com/UrbanWafflezz/GilbertRift/releases) page and verify checksums against the values listed in each release.
+- macOS 13 Ventura or later
+- Apple silicon or Intel Mac
+- A Gilbert Rift account
+- An internet connection for account, provider, update, and collaboration features
+- A supported provider sign-in or API key for the AI runtimes you choose to connect
+
+## About this repository
+
+This is the official public distribution home for Gilbert Rift. It contains release automation,
+download metadata, and this product page; the proprietary application source is not published here.
+
+Download Gilbert Rift only from this repository's [Releases](https://github.com/UrbanWafflezz/GilbertRift/releases)
+page. For bugs and product ideas, open an [issue](https://github.com/UrbanWafflezz/GilbertRift/issues).
 
 ---
 
 <div align="center">
 
 **Gilbert Rift — turn ideas into finished work.**
+
+[Download 0.2.2](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
+[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.2.2) ·
+[Report an issue](https://github.com/UrbanWafflezz/GilbertRift/issues)
 
 </div>
