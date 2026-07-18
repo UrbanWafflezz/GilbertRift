@@ -151,7 +151,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ inputs.version }}
         run: |
-          release_id=$(gh api "repos/UrbanWafflezz/GilbertRift/releases/tags/v${VERSION}" --jq .id)
+          release_id=$(gh api --paginate "repos/UrbanWafflezz/GilbertRift/releases?per_page=100" --jq ".[] | select(.draft == true and (.tag_name == \"v${VERSION}\" or .name == \"Gilbert Rift ${VERSION}\")) | .id" | head -n 1)
+          test -n "$release_id" || { echo "Draft release v${VERSION} is missing."; exit 1; }
           manifest_api=$(gh api "repos/UrbanWafflezz/GilbertRift/releases/${release_id}/assets" --jq '.[] | select(.name == "latest.json") | .url')
           test -n "$manifest_api" || { echo "latest.json is missing."; exit 1; }
           gh api "$manifest_api" -H "Accept: application/octet-stream" > latest.json
