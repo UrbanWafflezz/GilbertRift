@@ -22,7 +22,7 @@ Code, investigate, review, collaborate, and keep the work around your work in on
 
 </div>
 
-![Gilbert Rift Work screen showing a new AI coding task](.github/assets/screenshots/work-new-task.png)
+![Gilbert Rift Work screen showing a clean new AI coding task](.github/assets/screenshots/work-new-task-empty.png)
 
 <div align="center"><sub>Actual Gilbert Rift 0.2.2 interface running on macOS.</sub></div>
 
@@ -43,7 +43,7 @@ progress, and follow-ups visible in one place.
 <table>
   <tr>
     <td width="50%">
-      <img src=".github/assets/screenshots/tools-catalog.png" alt="Gilbert Rift extensions catalog with plugins, MCP servers, skills, and guidance">
+      <img src=".github/assets/screenshots/tools-catalog-clean.png" alt="Gilbert Rift extensions catalog with plugins, MCP servers, skills, and guidance">
       <br>
       <sub><b>Bring your tools with you.</b> Discover plugins, inspect MCP servers, manage skills, and keep project guidance close to the work.</sub>
     </td>
