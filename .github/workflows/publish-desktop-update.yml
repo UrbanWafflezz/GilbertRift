@@ -143,7 +143,7 @@ jobs:
           repo: GilbertRift
           retryAttempts: 2
           tagName: v__VERSION__
-          tauriScript: npm run app --
+          tauriScript: npm run app
           uploadUpdaterJson: true
           uploadUpdaterSignatures: true
 
