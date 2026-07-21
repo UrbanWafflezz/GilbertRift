@@ -1,9 +1,6 @@
 name: Publish desktop update
 
 on:
-  push:
-    tags:
-      - "0.3.0"
   workflow_dispatch:
     inputs:
       version:
@@ -56,10 +53,6 @@ jobs:
             node_arch: x64
             runner: macos-15-intel
             target: x86_64-apple-darwin
-          - label: Linux x64
-            node_arch: x64
-            runner: ubuntu-22.04
-            target: x86_64-unknown-linux-gnu
     steps:
       - name: Check out frontend source
         uses: actions/checkout@v4
@@ -92,22 +85,6 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
-
-      - name: Install Linux desktop packaging dependencies
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes \
-            build-essential \
-            file \
-            libayatana-appindicator3-dev \
-            libfuse2 \
-            librsvg2-dev \
-            libssl-dev \
-            libwebkit2gtk-4.1-dev \
-            libxdo-dev \
-            patchelf \
-            rpm
 
       - name: Install source dependencies
         run: |
@@ -149,7 +126,7 @@ jobs:
           prerelease: false
           releaseAssetNamePattern: Gilbert-Rift-[version]-[arch][ext]
           releaseBody: |
-            ${{ inputs.release_notes || 'Stability-focused update with reliability, performance, and collaboration improvements. Adds Linux AppImage, Debian, and RPM packages. Intel Mac remains available in this release but is deprecated and planned for removal in a future release.' }}
+            ${{ inputs.release_notes || 'Stability-focused update with reliability, performance, and collaboration improvements. Intel Mac remains available in this release but is deprecated and planned for removal in a future release.' }}
 
             Update scope: ${{ inputs.update_scope || 'both' }}
             Frontend source: ${{ inputs.frontend_ref || 'main' }}
@@ -184,8 +161,6 @@ jobs:
             (.platforms["darwin-aarch64"].url | length > 0) and
             (.platforms["darwin-aarch64"].signature | length > 0) and
             (.platforms["darwin-x86_64"].url | length > 0) and
-            (.platforms["darwin-x86_64"].signature | length > 0) and
-            (.platforms["linux-x86_64"].url | length > 0) and
-            (.platforms["linux-x86_64"].signature | length > 0)
+            (.platforms["darwin-x86_64"].signature | length > 0)
           ' latest.json
           gh api --method PATCH "repos/UrbanWafflezz/GilbertRift/releases/${release_id}" -F draft=false -F prerelease=false

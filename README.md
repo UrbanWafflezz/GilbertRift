@@ -13,14 +13,12 @@ Code, investigate, review, collaborate, and keep the work around your work in on
 [![Latest Release](https://img.shields.io/github/v/release/UrbanWafflezz/GilbertRift?style=for-the-badge&label=Latest)](https://github.com/UrbanWafflezz/GilbertRift/releases/latest)
 [![Total Downloads](https://img.shields.io/github/downloads/UrbanWafflezz/GilbertRift/total?style=for-the-badge&label=Downloads)](https://github.com/UrbanWafflezz/GilbertRift/releases)
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?style=for-the-badge&logo=apple)
-![Linux x64](https://img.shields.io/badge/Linux-x64-FCC624?style=for-the-badge&logo=linux&logoColor=111827)
 ![Apple Silicon + legacy Intel](https://img.shields.io/badge/Mac-ARM%20%2B%20legacy%20Intel-2563EB?style=for-the-badge)
 
 [![Download for Mac ARM](<https://img.shields.io/badge/Download-Mac%20ARM%20(Apple%20Silicon)-0A84FF?style=for-the-badge&logo=apple&logoColor=white>)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.0/Gilbert-Rift-0.3.0-aarch64.dmg)
 [![Download for Intel Mac](<https://img.shields.io/badge/Download-Intel%20Mac%20(legacy)-6E56CF?style=for-the-badge&logo=apple&logoColor=white>)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.0/Gilbert-Rift-0.3.0-x64.dmg)
-[![Download Linux AppImage](https://img.shields.io/badge/Download-Linux%20AppImage-FCC624?style=for-the-badge&logo=linux&logoColor=111827)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.0/Gilbert-Rift-0.3.0-x64.AppImage)
 
-**Current release: 0.3.0 · macOS 13 Ventura or later · Linux x64**
+**Current release: 0.3.0 · macOS 13 Ventura or later**
 
 </div>
 
@@ -95,16 +93,13 @@ progress, and follow-ups visible in one place.
 | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
 | Mac ARM — Apple silicon M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.0 for Mac ARM](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.0/Gilbert-Rift-0.3.0-aarch64.dmg) |
 | Intel Mac — legacy support                       | [Gilbert Rift 0.3.0 for Intel Mac](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.0/Gilbert-Rift-0.3.0-x64.dmg)   |
-| Linux x64 — portable                             | [Gilbert Rift 0.3.0 AppImage](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.0/Gilbert-Rift-0.3.0-x64.AppImage)   |
-| Linux x64 — system package                       | [All 0.3.0 Linux packages](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.0)                                           |
 
 > [!WARNING]
 > Intel Mac support is deprecated. Version 0.3.0 includes an Intel build, but Intel builds are
 > planned to be removed in a future release. Mac ARM (Apple silicon) is the long-term macOS target.
 
-1. Download the package for your platform.
-2. On macOS, open the DMG and drag **Gilbert Rift** into **Applications**. On Linux, make the
-   AppImage executable or install the matching system package.
+1. Download the package for your Mac.
+2. Open the DMG and drag **Gilbert Rift** into **Applications**.
 3. Launch Gilbert Rift.
 4. Sign in and connect the AI provider you want to use.
 
@@ -125,7 +120,7 @@ progress, and follow-ups visible in one place.
 
 Gilbert Rift 0.3.0 is a stability-focused update with more reliable Work planning and run recovery,
 stronger collaboration and notification performance, improved responsive layouts, expanded community
-planner workflows, and voice and video calling. It also adds Linux AppImage, Debian, and RPM packages.
+planner workflows, and voice and video calling.
 
 [Read the 0.3.0 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.0) ·
 [Browse every release](https://github.com/UrbanWafflezz/GilbertRift/releases)
@@ -136,7 +131,6 @@ check for and install verified updates from inside the app.
 ## Requirements
 
 - macOS 13 Ventura or later on Apple silicon (ARM), or temporarily on Intel
-- Linux x64 with AppImage support, or a compatible Debian/RPM-based distribution
 - A Gilbert Rift account
 - An internet connection for account, provider, update, and collaboration features
 - A supported provider sign-in or API key for the AI runtimes you choose to connect
