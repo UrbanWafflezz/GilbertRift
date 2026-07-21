@@ -15,10 +15,10 @@ Code, investigate, review, collaborate, and keep the work around your work in on
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?style=for-the-badge&logo=apple)
 ![Apple Silicon + legacy Intel](https://img.shields.io/badge/Mac-ARM%20%2B%20legacy%20Intel-2563EB?style=for-the-badge)
 
-[![Download for Mac ARM](<https://img.shields.io/badge/Download-Mac%20ARM%20(Apple%20Silicon)-0A84FF?style=for-the-badge&logo=apple&logoColor=white>)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.0/Gilbert-Rift-0.3.0-aarch64.dmg)
-[![Download for Intel Mac](<https://img.shields.io/badge/Download-Intel%20Mac%20(legacy)-6E56CF?style=for-the-badge&logo=apple&logoColor=white>)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.0/Gilbert-Rift-0.3.0-x64.dmg)
+[![Download for Mac ARM](<https://img.shields.io/badge/Download-Mac%20ARM%20(Apple%20Silicon)-0A84FF?style=for-the-badge&logo=apple&logoColor=white>)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.1/Gilbert-Rift-0.3.1-aarch64.dmg)
+[![Download for Intel Mac](<https://img.shields.io/badge/Download-Intel%20Mac%20(legacy)-6E56CF?style=for-the-badge&logo=apple&logoColor=white>)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.1/Gilbert-Rift-0.3.1-x64.dmg)
 
-**Current release: 0.3.0 · macOS 13 Ventura or later**
+**Current release: 0.3.1 · macOS 13 Ventura or later**
 
 </div>
 
@@ -91,11 +91,11 @@ progress, and follow-ups visible in one place.
 
 | Platform                                         | Download                                                                                                                               |
 | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Mac ARM — Apple silicon M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.0 for Mac ARM](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.0/Gilbert-Rift-0.3.0-aarch64.dmg) |
-| Intel Mac — legacy support                       | [Gilbert Rift 0.3.0 for Intel Mac](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.0/Gilbert-Rift-0.3.0-x64.dmg)   |
+| Mac ARM — Apple silicon M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.1 for Mac ARM](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.1/Gilbert-Rift-0.3.1-aarch64.dmg) |
+| Intel Mac — legacy support                       | [Gilbert Rift 0.3.1 for Intel Mac](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.1/Gilbert-Rift-0.3.1-x64.dmg)   |
 
 > [!WARNING]
-> Intel Mac support is deprecated. Version 0.3.0 includes an Intel build, but Intel builds are
+> Intel Mac support is deprecated. Version 0.3.1 includes an Intel build, but Intel builds are
 > planned to be removed in a future release. Mac ARM (Apple silicon) is the long-term macOS target.
 
 1. Download the package for your Mac.
@@ -116,13 +116,13 @@ progress, and follow-ups visible in one place.
 > this official repository. In-app update packages are separately signed and verified; that updater
 > signature is not the same as Apple Developer ID signing or notarization.
 
-## Current release · 0.3.0
+## Current release · 0.3.1
 
-Gilbert Rift 0.3.0 is a stability-focused update with more reliable Work planning and run recovery,
+Gilbert Rift 0.3.1 is a stability-focused update with more reliable Work planning and run recovery,
 stronger collaboration and notification performance, improved responsive layouts, expanded community
-planner workflows, and voice and video calling.
+planner workflows, voice and video calling, restored desktop search, and reliable trailing-slash route handling.
 
-[Read the 0.3.0 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.0) ·
+[Read the 0.3.1 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.1) ·
 [Browse every release](https://github.com/UrbanWafflezz/GilbertRift/releases)
 
 Users coming from 0.1.0 need to install a current build manually once. After that, Gilbert Rift can
@@ -149,8 +149,8 @@ page. For bugs and product ideas, open an [issue](https://github.com/UrbanWaffle
 
 **Gilbert Rift — turn ideas into finished work.**
 
-[Download 0.3.0](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
-[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.0) ·
+[Download 0.3.1](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
+[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.1) ·
 [Report an issue](https://github.com/UrbanWafflezz/GilbertRift/issues)
 
 </div>
