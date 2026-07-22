@@ -39,20 +39,8 @@ permissions:
 
 jobs:
   build:
-    name: Build ${{ matrix.label }}
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - label: Apple Silicon
-            node_arch: arm64
-            runner: macos-14
-            target: aarch64-apple-darwin
-          - label: Intel
-            node_arch: x64
-            runner: macos-15-intel
-            target: x86_64-apple-darwin
+    name: Build Apple Silicon
+    runs-on: macos-14
     steps:
       - name: Check out frontend source
         uses: actions/checkout@v4
@@ -84,7 +72,7 @@ jobs:
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.target }}
+          targets: aarch64-apple-darwin
 
       - name: Install source dependencies
         run: |
@@ -116,17 +104,17 @@ jobs:
         uses: tauri-apps/tauri-action@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          GILBERT_BUILD_ARCH: ${{ matrix.node_arch }}
+          GILBERT_BUILD_ARCH: arm64
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
-          args: --target ${{ matrix.target }}
+          args: --target aarch64-apple-darwin
           owner: UrbanWafflezz
           projectPath: front end
           prerelease: false
           releaseAssetNamePattern: Gilbert-Rift-[version]-[arch][ext]
           releaseBody: |
-            ${{ inputs.release_notes || 'Stability-focused update with reliability, performance, and collaboration improvements. Intel Mac remains available in this release but is deprecated and planned for removal in a future release.' }}
+            ${{ inputs.release_notes || 'Apple silicon release with reliability, performance, and collaboration improvements. Intel Macs are no longer supported beginning with version 0.3.2.' }}
 
             Update scope: ${{ inputs.update_scope || 'both' }}
             Frontend source: ${{ inputs.frontend_ref || 'main' }}
@@ -159,8 +147,6 @@ jobs:
           jq -e '
             .version == env.VERSION and
             (.platforms["darwin-aarch64"].url | length > 0) and
-            (.platforms["darwin-aarch64"].signature | length > 0) and
-            (.platforms["darwin-x86_64"].url | length > 0) and
-            (.platforms["darwin-x86_64"].signature | length > 0)
+            (.platforms["darwin-aarch64"].signature | length > 0)
           ' latest.json
           gh api --method PATCH "repos/UrbanWafflezz/GilbertRift/releases/${release_id}" -F draft=false -F prerelease=false
