@@ -21,6 +21,12 @@ Code, investigate, review, collaborate, and keep the work around your work in on
 
 </div>
 
+> [!CAUTION]
+> **Copyright © 2026 UrbanWafflezz. All rights reserved.** Gilbert Rift is proprietary software, not
+> open-source software. Downloading the app permits installation and intended end use; it does not
+> transfer ownership or grant permission to copy, modify, redistribute, commercialize, or create
+> derivative works. See the [proprietary notice and end-user license](LICENSE.md).
+
 ![Gilbert Rift Work screen showing a clean new AI coding task](.github/assets/screenshots/work-new-task-empty.png)
 
 <div align="center"><sub>Gilbert Rift desktop interface.</sub></div>
@@ -142,6 +148,14 @@ download metadata, and this product page; the proprietary application source is 
 
 Download Gilbert Rift only from this repository's [Releases](https://github.com/UrbanWafflezz/GilbertRift/releases)
 page. For bugs and product ideas, open an [issue](https://github.com/UrbanWafflezz/GilbertRift/issues).
+
+## Copyright and license
+
+Copyright © 2026 UrbanWafflezz. All rights reserved. Gilbert Rift, its official release packages,
+branding, visual assets, documentation, and other original material are proprietary and are not
+released under an open-source license. The limited permission to download, install, and use an
+official release does not transfer ownership or permit redistribution or derivative works. See
+[LICENSE.md](LICENSE.md) for the complete terms.
 
 ---
 
