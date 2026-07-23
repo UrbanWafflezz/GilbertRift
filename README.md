@@ -15,9 +15,9 @@ Code, investigate, review, collaborate, and keep the work around your work in on
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?style=for-the-badge&logo=apple)
 ![Apple Silicon only](https://img.shields.io/badge/Mac-Apple%20Silicon%20Only-2563EB?style=for-the-badge)
 
-[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.2/Gilbert-Rift-0.3.2-aarch64.dmg)
+[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.3/Gilbert-Rift-0.3.3-aarch64.dmg)
 
-**Current release: 0.3.2 · Apple silicon · macOS 13 Ventura or later**
+**Current release: 0.3.3 · Apple silicon · macOS 13 Ventura or later**
 
 </div>
 
@@ -90,7 +90,7 @@ progress, and follow-ups visible in one place.
 
 | Platform                                     | Download                                                                                                                                     |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.2 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.2/Gilbert-Rift-0.3.2-aarch64.dmg) |
+| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.3 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.3/Gilbert-Rift-0.3.3-aarch64.dmg) |
 
 > [!WARNING]
 > **Intel Macs are no longer supported.** Version 0.3.1 was the final Intel build. Version 0.3.2 and
@@ -115,13 +115,14 @@ progress, and follow-ups visible in one place.
 > this official repository. In-app update packages are separately signed and verified; that updater
 > signature is not the same as Apple Developer ID signing or notarization.
 
-## Current release · 0.3.2
+## Current release · 0.3.3
 
-Gilbert Rift 0.3.2 adds account-synced interactive onboarding, a public feedback board, durable Work
-plan history and Goal continuation, project lifecycle improvements, unified personal/project MCP
-discovery, richer provider usage and pricing, and more resilient Chat history.
+Gilbert Rift 0.3.3 is a Friends and onboarding hotfix. Friends now separates incoming and sent
+requests, keeps the selected view in the URL, and recommends only people connected through mutual
+friends. Onboarding highlights now recover more reliably across route transitions, responsive
+layouts, and temporarily unavailable targets.
 
-[Read the 0.3.2 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.2) ·
+[Read the 0.3.3 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.3) ·
 [Browse every release](https://github.com/UrbanWafflezz/GilbertRift/releases)
 
 Users coming from 0.1.0 need to install a current build manually once. After that, Gilbert Rift can
@@ -148,8 +149,8 @@ page. For bugs and product ideas, open an [issue](https://github.com/UrbanWaffle
 
 **Gilbert Rift — turn ideas into finished work.**
 
-[Download 0.3.2](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
-[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.2) ·
+[Download 0.3.3](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
+[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.3) ·
 [Report an issue](https://github.com/UrbanWafflezz/GilbertRift/issues)
 
 </div>
