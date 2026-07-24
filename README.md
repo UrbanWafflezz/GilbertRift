@@ -15,9 +15,9 @@ Code, investigate, review, collaborate, and keep the work around your work in on
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?style=for-the-badge&logo=apple)
 ![Apple Silicon only](https://img.shields.io/badge/Mac-Apple%20Silicon%20Only-2563EB?style=for-the-badge)
 
-[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.3/Gilbert-Rift-0.3.3-aarch64.dmg)
+[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.5/Gilbert-Rift-0.3.5-aarch64.dmg)
 
-**Current release: 0.3.3 · Apple silicon · macOS 13 Ventura or later**
+**Current release: 0.3.5 · Apple silicon · macOS 13 Ventura or later**
 
 </div>
 
@@ -27,7 +27,7 @@ Code, investigate, review, collaborate, and keep the work around your work in on
 > transfer ownership or grant permission to copy, modify, redistribute, commercialize, or create
 > derivative works. See the [proprietary notice and end-user license](LICENSE.md).
 
-![Gilbert Rift Work screen showing a clean new AI coding task](.github/assets/screenshots/work-new-task-empty.png)
+![Gilbert Rift Work screen showing a clean new AI coding chat](.github/assets/screenshots/work-new-task-empty.png)
 
 <div align="center"><sub>Gilbert Rift desktop interface.</sub></div>
 
@@ -68,8 +68,10 @@ progress, and follow-ups visible in one place.
 - Use Agent, Plan, Goal, or Goal + Plan modes for quick changes or work that spans multiple turns.
 - Review tool activity, terminal output, file changes, Git status, progress steps, and generated images
   without losing the conversation that produced them.
-- Queue follow-ups while work is running, stop or retry a response, and return to long-running tasks
-  later.
+- See provider responses and live tool output as they arrive, queue or steer follow-ups while work is
+  running, and return to long-running tasks later.
+- Keep project-specific model and reasoning choices, generated task titles, and recoverable task
+  history across sessions.
 
 ### Choose the runtime that fits the job
 
@@ -82,7 +84,8 @@ progress, and follow-ups visible in one place.
 
 - Use direct and group messages with replies, reactions, attachments, voice notes, and presence.
 - Create communities with channels, members, events, polls, planner boards, and linked projects.
-- Organize workspaces, approvals, notifications, schedules, and recurring AI work from the same app.
+- Organize projects, approvals, notifications, schedules, monitor tasks, and recurring AI work from
+  the same app.
 
 ### Feel at home on macOS
 
@@ -96,7 +99,7 @@ progress, and follow-ups visible in one place.
 
 | Platform                                     | Download                                                                                                                                     |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.3 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.3/Gilbert-Rift-0.3.3-aarch64.dmg) |
+| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.5 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.5/Gilbert-Rift-0.3.5-aarch64.dmg) |
 
 > [!WARNING]
 > **Intel Macs are no longer supported.** Version 0.3.1 was the final Intel build. Version 0.3.2 and
@@ -121,14 +124,14 @@ progress, and follow-ups visible in one place.
 > this official repository. In-app update packages are separately signed and verified; that updater
 > signature is not the same as Apple Developer ID signing or notarization.
 
-## Current release · 0.3.3
+## Current release · 0.3.5
 
-Gilbert Rift 0.3.3 is a Friends and onboarding hotfix. Friends now separates incoming and sent
-requests, keeps the selected view in the URL, and recommends only people connected through mutual
-friends. Onboarding highlights now recover more reliably across route transitions, responsive
-layouts, and temporarily unavailable targets.
+Gilbert Rift 0.3.5 makes Work responses appear faster and complete more reliably. It adds generated
+task titles, preserves project-specific model and reasoning preferences, streams live tool output
+more responsively, and strengthens task recovery and completion finalization across supported
+runtimes. The release also improves responsive Work layouts.
 
-[Read the 0.3.3 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.3) ·
+[Read the 0.3.5 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.5) ·
 [Browse every release](https://github.com/UrbanWafflezz/GilbertRift/releases)
 
 Users coming from 0.1.0 need to install a current build manually once. After that, Gilbert Rift can
@@ -163,8 +166,8 @@ official release does not transfer ownership or permit redistribution or derivat
 
 **Gilbert Rift — turn ideas into finished work.**
 
-[Download 0.3.3](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
-[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.3) ·
+[Download 0.3.5](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
+[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.5) ·
 [Report an issue](https://github.com/UrbanWafflezz/GilbertRift/issues)
 
 </div>
