@@ -15,9 +15,9 @@ Code, investigate, review, collaborate, and keep the work around your work in on
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?style=for-the-badge&logo=apple)
 ![Apple Silicon only](https://img.shields.io/badge/Mac-Apple%20Silicon%20Only-2563EB?style=for-the-badge)
 
-[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.7/Gilbert-Rift-0.3.7-aarch64.dmg)
+[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.8/Gilbert-Rift-0.3.8-aarch64.dmg)
 
-**Current release: 0.3.7 · Apple silicon · macOS 13 Ventura or later**
+**Current release: 0.3.8 · Apple silicon · macOS 13 Ventura or later**
 
 </div>
 
@@ -70,6 +70,8 @@ progress, and follow-ups visible in one place.
   without losing the conversation that produced them.
 - See provider responses and live tool output as they arrive, queue or steer follow-ups while work is
   running, and return to long-running tasks later.
+- Answer provider questions directly in the active task composer and expand grouped tool summaries
+  when you need the original command, file, plugin, or image details.
 - Keep project-specific model and reasoning choices, generated task titles, and recoverable task
   history across sessions.
 
@@ -104,7 +106,7 @@ progress, and follow-ups visible in one place.
 
 | Platform                                     | Download                                                                                                                                     |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.7 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.7/Gilbert-Rift-0.3.7-aarch64.dmg) |
+| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.8 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.8/Gilbert-Rift-0.3.8-aarch64.dmg) |
 
 > [!WARNING]
 > **Intel Macs are no longer supported.** Version 0.3.1 was the final Intel build. Version 0.3.2 and
@@ -129,15 +131,15 @@ progress, and follow-ups visible in one place.
 > this official repository. In-app update packages are separately signed and verified; that updater
 > signature is not the same as Apple Developer ID signing or notarization.
 
-## Current release · 0.3.7
+## Current release · 0.3.8
 
-Gilbert Rift 0.3.7 adds direct connections for DeepSeek, Kimi, xAI, Mistral AI, and Google Gemini.
-API keys stay encrypted and account-scoped, model choices synchronize from each provider's live
-catalog, and supported native search, reasoning, vision, and image-generation capabilities work in
-Gilbert Chat and Work. The release also improves Claude and OpenAI usage details and makes Work
-streaming more efficient and resilient across completion, continuation, and reconnection.
+Gilbert Rift 0.3.8 makes interactive Work runs faster and easier to follow. Provider questions now
+replace only the active task's composer and resume the run immediately after an answer. Related
+commands, file operations, plugins, and image tools collapse into readable timeline summaries while
+preserving every original detail. Tool progress no longer waits on database bookkeeping, and Claude
+progress narration stays in the correct place before its tools and final answer.
 
-[Read the 0.3.7 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.7) ·
+[Read the 0.3.8 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.8) ·
 [Browse every release](https://github.com/UrbanWafflezz/GilbertRift/releases)
 
 Users coming from 0.1.0 need to install a current build manually once. After that, Gilbert Rift can
@@ -172,8 +174,8 @@ official release does not transfer ownership or permit redistribution or derivat
 
 **Gilbert Rift — turn ideas into finished work.**
 
-[Download 0.3.7](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
-[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.7) ·
+[Download 0.3.8](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
+[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.8) ·
 [Report an issue](https://github.com/UrbanWafflezz/GilbertRift/issues)
 
 </div>
