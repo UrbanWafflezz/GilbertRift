@@ -15,9 +15,9 @@ Code, investigate, review, collaborate, and keep the work around your work in on
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?style=for-the-badge&logo=apple)
 ![Apple Silicon only](https://img.shields.io/badge/Mac-Apple%20Silicon%20Only-2563EB?style=for-the-badge)
 
-[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.6/Gilbert-Rift-0.3.6-aarch64.dmg)
+[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.7/Gilbert-Rift-0.3.7-aarch64.dmg)
 
-**Current release: 0.3.6 · Apple silicon · macOS 13 Ventura or later**
+**Current release: 0.3.7 · Apple silicon · macOS 13 Ventura or later**
 
 </div>
 
@@ -75,7 +75,10 @@ progress, and follow-ups visible in one place.
 
 ### Choose the runtime that fits the job
 
-- Connect supported OpenAI Codex, Anthropic Claude, OpenCode Zen, and OpenRouter runtimes.
+- Connect OpenAI Codex, Anthropic Claude, OpenCode Zen, OpenRouter, DeepSeek, Kimi, xAI, Mistral
+  AI, and Google Gemini.
+- Add direct-provider API keys through encrypted account-scoped settings, then choose from each
+  provider's live model catalog.
 - Discover compatible local LM Studio and Ollama servers on your device or private network.
 - Select models, reasoning effort, permissions, and project scope per task instead of accepting a
   hidden global default.
@@ -101,7 +104,7 @@ progress, and follow-ups visible in one place.
 
 | Platform                                     | Download                                                                                                                                     |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.6 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.6/Gilbert-Rift-0.3.6-aarch64.dmg) |
+| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.7 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.7/Gilbert-Rift-0.3.7-aarch64.dmg) |
 
 > [!WARNING]
 > **Intel Macs are no longer supported.** Version 0.3.1 was the final Intel build. Version 0.3.2 and
@@ -126,15 +129,15 @@ progress, and follow-ups visible in one place.
 > this official repository. In-app update packages are separately signed and verified; that updater
 > signature is not the same as Apple Developer ID signing or notarization.
 
-## Current release · 0.3.6
+## Current release · 0.3.7
 
-Gilbert Rift 0.3.6 rebuilds voice and video calls as a native-feeling desktop experience. Calls stay
-active while you navigate the app, primary controls move into the title bar, participant layouts
-remain balanced across call sizes, and incoming calls offer Answer and Decline actions from native
-macOS notifications. The release also refines active-call page titles and automatically ends solo
-calls after two minutes.
+Gilbert Rift 0.3.7 adds direct connections for DeepSeek, Kimi, xAI, Mistral AI, and Google Gemini.
+API keys stay encrypted and account-scoped, model choices synchronize from each provider's live
+catalog, and supported native search, reasoning, vision, and image-generation capabilities work in
+Gilbert Chat and Work. The release also improves Claude and OpenAI usage details and makes Work
+streaming more efficient and resilient across completion, continuation, and reconnection.
 
-[Read the 0.3.6 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.6) ·
+[Read the 0.3.7 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.7) ·
 [Browse every release](https://github.com/UrbanWafflezz/GilbertRift/releases)
 
 Users coming from 0.1.0 need to install a current build manually once. After that, Gilbert Rift can
@@ -169,8 +172,8 @@ official release does not transfer ownership or permit redistribution or derivat
 
 **Gilbert Rift — turn ideas into finished work.**
 
-[Download 0.3.6](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
-[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.6) ·
+[Download 0.3.7](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
+[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.7) ·
 [Report an issue](https://github.com/UrbanWafflezz/GilbertRift/issues)
 
 </div>
