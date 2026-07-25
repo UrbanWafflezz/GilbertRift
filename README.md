@@ -15,9 +15,9 @@ Code, investigate, review, collaborate, and keep the work around your work in on
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?style=for-the-badge&logo=apple)
 ![Apple Silicon only](https://img.shields.io/badge/Mac-Apple%20Silicon%20Only-2563EB?style=for-the-badge)
 
-[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.5/Gilbert-Rift-0.3.5-aarch64.dmg)
+[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.6/Gilbert-Rift-0.3.6-aarch64.dmg)
 
-**Current release: 0.3.5 · Apple silicon · macOS 13 Ventura or later**
+**Current release: 0.3.6 · Apple silicon · macOS 13 Ventura or later**
 
 </div>
 
@@ -83,6 +83,8 @@ progress, and follow-ups visible in one place.
 ### Keep collaboration beside the code
 
 - Use direct and group messages with replies, reactions, attachments, voice notes, and presence.
+- Keep voice and video calls active while navigating, with title-bar controls and actionable native
+  incoming-call notifications.
 - Create communities with channels, members, events, polls, planner boards, and linked projects.
 - Organize projects, approvals, notifications, schedules, monitor tasks, and recurring AI work from
   the same app.
@@ -99,7 +101,7 @@ progress, and follow-ups visible in one place.
 
 | Platform                                     | Download                                                                                                                                     |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.5 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.5/Gilbert-Rift-0.3.5-aarch64.dmg) |
+| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.6 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.6/Gilbert-Rift-0.3.6-aarch64.dmg) |
 
 > [!WARNING]
 > **Intel Macs are no longer supported.** Version 0.3.1 was the final Intel build. Version 0.3.2 and
@@ -124,14 +126,15 @@ progress, and follow-ups visible in one place.
 > this official repository. In-app update packages are separately signed and verified; that updater
 > signature is not the same as Apple Developer ID signing or notarization.
 
-## Current release · 0.3.5
+## Current release · 0.3.6
 
-Gilbert Rift 0.3.5 makes Work responses appear faster and complete more reliably. It adds generated
-task titles, preserves project-specific model and reasoning preferences, streams live tool output
-more responsively, and strengthens task recovery and completion finalization across supported
-runtimes. The release also improves responsive Work layouts.
+Gilbert Rift 0.3.6 rebuilds voice and video calls as a native-feeling desktop experience. Calls stay
+active while you navigate the app, primary controls move into the title bar, participant layouts
+remain balanced across call sizes, and incoming calls offer Answer and Decline actions from native
+macOS notifications. The release also refines active-call page titles and automatically ends solo
+calls after two minutes.
 
-[Read the 0.3.5 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.5) ·
+[Read the 0.3.6 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.6) ·
 [Browse every release](https://github.com/UrbanWafflezz/GilbertRift/releases)
 
 Users coming from 0.1.0 need to install a current build manually once. After that, Gilbert Rift can
@@ -166,8 +169,8 @@ official release does not transfer ownership or permit redistribution or derivat
 
 **Gilbert Rift — turn ideas into finished work.**
 
-[Download 0.3.5](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
-[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.5) ·
+[Download 0.3.6](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
+[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.6) ·
 [Report an issue](https://github.com/UrbanWafflezz/GilbertRift/issues)
 
 </div>
