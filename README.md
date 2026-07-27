@@ -15,9 +15,9 @@ Code, investigate, review, collaborate, and keep the work around your work in on
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?style=for-the-badge&logo=apple)
 ![Apple Silicon only](https://img.shields.io/badge/Mac-Apple%20Silicon%20Only-2563EB?style=for-the-badge)
 
-[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.9/Gilbert-Rift-0.3.9-aarch64.dmg)
+[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.10/Gilbert-Rift-0.3.10-aarch64.dmg)
 
-**Current release: 0.3.9 · Apple silicon · macOS 13 Ventura or later**
+**Current release: 0.3.10 · Apple silicon · macOS 13 Ventura or later**
 
 </div>
 
@@ -108,7 +108,7 @@ progress, and follow-ups visible in one place.
 
 | Platform                                     | Download                                                                                                                                     |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.9 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.9/Gilbert-Rift-0.3.9-aarch64.dmg) |
+| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.10 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.10/Gilbert-Rift-0.3.10-aarch64.dmg) |
 
 > [!WARNING]
 > **Intel Macs are no longer supported.** Version 0.3.1 was the final Intel build. Version 0.3.2 and
@@ -133,16 +133,41 @@ progress, and follow-ups visible in one place.
 > this official repository. In-app update packages are separately signed and verified; that updater
 > signature is not the same as Apple Developer ID signing or notarization.
 
-## Current release · 0.3.9
+## Current release · 0.3.10
 
-Gilbert Rift 0.3.9 makes Work more capable, private, and responsive. A provider-first selector keeps
-model, effort, and speed choices together, while automatic context compaction protects long-running
-tasks from oversized histories. File-change approvals now open a focused review with anchored
-decisions and compatible macOS applications. Packaged dictation runs locally with a verified Whisper
-model, task terminals persist until explicitly stopped, and Codex, Claude, and OpenCode receive
-richer bounded attachment context.
+Gilbert Rift 0.3.10 is the first major stability update for the desktop workspace. It focuses on the
+moments that matter most during real project work: keeping long chats responsive, preserving the
+right context when a model changes, showing trustworthy usage, and making sure a provider actually
+delivers a visible answer before a task is marked complete.
 
-[Read the 0.3.9 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.9) ·
+### What is more reliable
+
+- **Long Work chats stay responsive.** When a provider thread grows large enough to risk a slow cold
+  start, Rift moves the next turn to a fresh provider session and carries forward a bounded summary
+  of the durable conversation. The complete task history and artifacts remain in Rift.
+- **Provider and model changes keep continuity.** A task can move between models or providers without
+  reusing an incompatible native session. Earlier decisions remain available through the durable
+  history handoff.
+- **Every completed turn needs an answer.** If a provider stops after reasoning or tool activity,
+  Rift attempts to recover the final response. If the provider still returns nothing, the task shows
+  a clear retryable error instead of a misleading success.
+- **Context and cost numbers are steadier.** Child-agent work counts toward total usage without
+  replacing the parent task's context meter. Cache reads, cache writes, and recorded provider cost
+  are tracked separately.
+- **Live activity says what is happening.** Creating, editing, deleting, reading, and searching use
+  accurate in-progress and completed labels across Codex, Claude, and OpenCode-backed providers.
+- **Project history is easier to navigate.** Each project can load and collapse its own older chats,
+  and the model control no longer repeats a matching provider name.
+- **Provider compatibility is stronger.** Hosted and local runtimes use updated capability checks,
+  safer output limits, current Claude and OpenCode dependencies, and clearer vLLM tool requirements.
+
+### Coming next · Communities
+
+A major Communities update is coming in the next Gilbert Rift release. Version 0.3.10 intentionally
+strengthens Work, streaming, persistence, and provider behavior first so the next collaboration
+update arrives on a more dependable foundation.
+
+[Read the 0.3.10 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.10) ·
 [Browse every release](https://github.com/UrbanWafflezz/GilbertRift/releases)
 
 Users coming from 0.1.0 need to install a current build manually once. After that, Gilbert Rift can
@@ -177,8 +202,8 @@ official release does not transfer ownership or permit redistribution or derivat
 
 **Gilbert Rift — turn ideas into finished work.**
 
-[Download 0.3.9](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
-[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.9) ·
+[Download 0.3.10](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
+[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.10) ·
 [Report an issue](https://github.com/UrbanWafflezz/GilbertRift/issues)
 
 </div>
