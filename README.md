@@ -25,59 +25,68 @@ The proprietary frontend and trusted backend source live in separate private rep
 downloads are presented through the Gilbert Rift website; GitHub Releases remains the authoritative
 artifact store and stable in-app update channel.
 
-| Channel | Role |
-| --- | --- |
-| [Latest release](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) | Published macOS package, updater archive, signatures, and release notes |
-| [`latest.json`](https://github.com/UrbanWafflezz/GilbertRift/releases/latest/download/latest.json) | Tauri updater manifest read by installed clients |
-| [Publish desktop update](https://github.com/UrbanWafflezz/GilbertRift/actions/workflows/publish-desktop-update.yml) | Controlled build, signing, verification, and publication pipeline |
-| [Issues](https://github.com/UrbanWafflezz/GilbertRift/issues) | Public bug reports and product feedback |
+| Channel                                                                                                             | Role                                                                    |
+| ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [Latest release](https://github.com/UrbanWafflezz/GilbertRift/releases/latest)                                      | Published macOS package, updater archive, signatures, and release notes |
+| [`latest.json`](https://github.com/UrbanWafflezz/GilbertRift/releases/latest/download/latest.json)                  | Tauri updater manifest read by installed clients                        |
+| [Publish desktop update](https://github.com/UrbanWafflezz/GilbertRift/actions/workflows/publish-desktop-update.yml) | Controlled build, signing, verification, and publication pipeline       |
+| [Issues](https://github.com/UrbanWafflezz/GilbertRift/issues)                                                       | Public bug reports and product feedback                                 |
 
-## Current release: 0.4.0
+## Current release: 0.8.0
 
-Version 0.4.0 improves the conversation stack, desktop notification delivery, session resilience,
-large-account operations, and bounded runtime behavior across Chat, Work, schedules, and
-collaboration.
+Version 0.8.0 is Gilbert Rift's near-complete product milestone. The desktop application now keeps
+long-running work alive in the background, unifies scheduled and state-triggered automation, and
+finishes the core collaboration, terminal, approval, and runtime experiences required for the road
+to 1.0.
 
-### Desktop and messaging
+### Desktop continuity
 
-- macOS notifications now cover messages, mentions, task updates, and calls through one native
-  bridge. Notification destinations are restricted to validated in-app routes.
-- Quiet hours default to off. Existing accounts that still use the untouched shipped window are
-  migrated, while user-configured schedules are preserved.
-- Message threads group consecutive messages by author, add day boundaries, keep delivery state on
-  the newest outgoing message, and reserve attachment dimensions to avoid layout shifts.
-- Folders can be sent as traversal-safe ZIP archives and browsed as an expandable tree directly in
-  the conversation.
-- Group calls expose per-participant speaking state, and desktop notification audio resumes safely
-  when WebKit starts with a suspended audio context.
+- Closing the main window can keep Gilbert Rift available from a native macOS menu-bar control,
+  with explicit reopen and quit actions.
+- Active Work, Scheduled, and monitoring sessions prevent macOS App Nap from silently suspending
+  time-sensitive execution.
+- Background task completion is surfaced through a shared in-app and native notification contract,
+  with validated destinations and consistent run status.
+- Desktop preferences control launch-at-login and background behavior without weakening the
+  trusted local-service boundary.
 
-### Chat, Work, and runtime behavior
+### Automation and task operations
 
-- Gilbert Chat coalesces streamed text and reasoning updates on a fixed interval, reducing render
-  pressure without delaying terminal events.
-- Chat turns are serialized per conversation and have explicit cancellation and provider-stall
-  handling.
-- Work task presentation loads a bounded recent run window and paginates events instead of scaling
-  initial rendering with the complete task history.
-- Terminal sessions enforce a reconnect grace period and retain only a bounded replay window after
-  exit.
-- Provider catalogs, usage reporting, approvals, cancellation, and task-state presentation were
-  tightened across Codex, Claude, OpenCode, hosted providers, and local runtimes.
+- Scheduled runs and project monitors execute through one authenticated background-session service
+  and remain isolated by account.
+- Tasks now separates time-triggered automation from state-triggered monitoring while preserving a
+  single operational history and status vocabulary.
+- Schedule destinations, ordering, run history, result rendering, deletion, and recovery behavior
+  are fully manageable from the desktop client.
+- Work tasks carry an explicit origin, allowing normal conversations, scheduled executions, and
+  monitoring runs to be presented and resumed correctly.
 
-### Trusted backend and data layer
+### Work runtime and safety
 
-- Supabase JSON Web Key Sets are cached in an owner-only local file. A temporary identity-service
-  outage now returns a retryable response instead of invalidating an otherwise valid session.
-- Account exports stream a ZIP archive from bounded database pages and sanitized local-file paths,
-  avoiding whole-account buffering in memory.
-- Realtime subscriptions share a bounded handshake and remove failed channels so unsuccessful
-  subscriptions cannot leak resources.
-- Community content loading uses bounded queries and shared profile/reaction resolution. Supporting
-  migrations add channel-scoped access, durable bans, atomic poll votes, and bounded feed behavior.
-- Schedule staleness is evaluated against each schedule's timezone and cadence, including
-  daylight-saving transitions.
+- Work terminals now use real persistent PTY sessions, start a login shell in the selected project,
+  survive panel disconnection, replay bounded output, and terminate with their owning task.
+- Approval review classifies command and file operations by risk, explains why confirmation is
+  required, and preserves an auditable approval history.
+- OpenCode permissions are normalized into Gilbert Rift's provider-neutral access model, including
+  safe handling for child sessions and interactive questions.
+- Plan history, goal lifecycle, task drafts, provider activity, and side-panel behavior have been
+  tightened for long-running development sessions.
 
-[Read the complete 0.4.0 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.4.0)
+### Collaboration and provider infrastructure
+
+- Communities has a refined directory, channel conversation model, member and role controls,
+  invitations, polls, notification defaults, and responsive workspace layout.
+- Hosted model capabilities and context limits are sourced through a maintained model catalog
+  instead of relying on artificial output caps.
+- Account-scoped background state, schedule reconciliation, community defaults, and task origins are
+  backed by explicit schema migrations and bounded service contracts.
+- Provider and runtime behavior remains isolated behind the trusted backend for Codex, Claude,
+  OpenCode, hosted APIs, and local models.
+
+The core product is now functionally complete. The remaining work before 1.0 is focused on final
+polish, production hardening, and distribution quality rather than missing primary workflows.
+
+[Read the complete 0.8.0 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.8.0)
 
 ## Runtime architecture
 
