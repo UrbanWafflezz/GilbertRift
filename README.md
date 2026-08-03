@@ -66,7 +66,8 @@ to 1.0.
 - Work terminals now use real persistent PTY sessions, start a login shell in the selected project,
   survive panel disconnection, replay bounded output, and terminate with their owning task.
 - Approval review classifies command and file operations by risk, explains why confirmation is
-  required, and preserves an auditable approval history.
+  required, preserves an auditable approval history, and keeps every pending file decision visible
+  without falling back to an unrelated file operation.
 - OpenCode permissions are normalized into Gilbert Rift's provider-neutral access model, including
   safe handling for child sessions and interactive questions.
 - Goals expose durable pause and resume behavior with explicit terminal states, while Plan decisions
