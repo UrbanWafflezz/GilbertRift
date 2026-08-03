@@ -3,207 +3,133 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/gilbert-rift-logo-dark.png">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/gilbert-rift-logo-light.png">
-  <img alt="Gilbert Rift" src=".github/assets/gilbert-rift-logo-light.png" width="680">
+  <img alt="Gilbert Rift" src=".github/assets/gilbert-rift-logo-light.png" width="560">
 </picture>
 
-### AI work that can actually work with your project.
+### Official desktop distribution and update infrastructure
 
-Code, investigate, review, collaborate, and keep the work around your work in one focused desktop app.
-
-[![Latest Release](https://img.shields.io/github/v/release/UrbanWafflezz/GilbertRift?style=for-the-badge&label=Latest)](https://github.com/UrbanWafflezz/GilbertRift/releases/latest)
-[![Total Downloads](https://img.shields.io/github/downloads/UrbanWafflezz/GilbertRift/total?style=for-the-badge&label=Downloads)](https://github.com/UrbanWafflezz/GilbertRift/releases)
-![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?style=for-the-badge&logo=apple)
-![Apple Silicon only](https://img.shields.io/badge/Mac-Apple%20Silicon%20Only-2563EB?style=for-the-badge)
-
-[![Download for Apple silicon](https://img.shields.io/badge/Download-Apple%20Silicon-0A84FF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.10/Gilbert-Rift-0.3.10-aarch64.dmg)
-
-**Current release: 0.3.10 · Apple silicon · macOS 13 Ventura or later**
+[![Release](https://img.shields.io/github/v/release/UrbanWafflezz/GilbertRift?label=stable)](https://github.com/UrbanWafflezz/GilbertRift/releases/latest)
+[![Publish desktop update](https://github.com/UrbanWafflezz/GilbertRift/actions/workflows/publish-desktop-update.yml/badge.svg)](https://github.com/UrbanWafflezz/GilbertRift/actions/workflows/publish-desktop-update.yml)
+![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?logo=apple)
+![Apple silicon](https://img.shields.io/badge/architecture-Apple%20silicon-2563EB)
 
 </div>
 
-> [!CAUTION]
-> **Copyright © 2026 UrbanWafflezz. All rights reserved.** Gilbert Rift is proprietary software, not
-> open-source software. Downloading the app permits installation and intended end use; it does not
-> transfer ownership or grant permission to copy, modify, redistribute, commercialize, or create
-> derivative works. See the [proprietary notice and end-user license](LICENSE.md).
+## Repository purpose
 
-![Gilbert Rift Work screen showing a clean new AI coding chat](.github/assets/screenshots/work-new-task-empty.png)
+This public repository is the release boundary for Gilbert Rift. It contains the GitHub Actions
+workflow that assembles the desktop application, the signed update metadata consumed by installed
+clients, public release artifacts, issue tracking, and distribution documentation.
 
-<div align="center"><sub>Gilbert Rift desktop interface.</sub></div>
+The proprietary frontend and trusted backend source live in separate private repositories. Product
+downloads are presented through the Gilbert Rift website; GitHub Releases remains the authoritative
+artifact store and stable in-app update channel.
 
-## One app for the whole arc of the work
+| Channel | Role |
+| --- | --- |
+| [Latest release](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) | Published macOS package, updater archive, signatures, and release notes |
+| [`latest.json`](https://github.com/UrbanWafflezz/GilbertRift/releases/latest/download/latest.json) | Tauri updater manifest read by installed clients |
+| [Publish desktop update](https://github.com/UrbanWafflezz/GilbertRift/actions/workflows/publish-desktop-update.yml) | Controlled build, signing, verification, and publication pipeline |
+| [Issues](https://github.com/UrbanWafflezz/GilbertRift/issues) | Public bug reports and product feedback |
 
-Gilbert Rift is a desktop workspace for turning an idea into finished work without constantly
-jumping between an AI chat, terminal, project browser, task tracker, messages, and team tools. Work
-sessions stay grounded in a real project and keep the model, permission level, files, tool activity,
-progress, and follow-ups visible in one place.
+## Current release: 0.4.0
 
-| Build with context                                                                                           | Stay in control                                                                                 |
-| ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| Give an AI runtime an approved project, attach files, inspect changes, and continue the same task over time. | Choose the provider, model, reasoning level, task mode, and access profile before work begins.  |
-| Follow terminal activity, file reads, diffs, Git state, plans, and task progress in the timeline.            | Use approval-first, managed approval, or full-access profiles with explicit project boundaries. |
+Version 0.4.0 improves the conversation stack, desktop notification delivery, session resilience,
+large-account operations, and bounded runtime behavior across Chat, Work, schedules, and
+collaboration.
 
-## See Gilbert Rift in action
+### Desktop and messaging
 
-<table>
-  <tr>
-    <td width="50%">
-      <img src=".github/assets/screenshots/tools-catalog-clean.png" alt="Gilbert Rift extensions catalog with plugins, MCP servers, skills, and guidance">
-      <br>
-      <sub><b>Bring your tools with you.</b> Discover plugins, inspect MCP servers, manage skills, and keep project guidance close to the work.</sub>
-    </td>
-    <td width="50%">
-      <img src=".github/assets/screenshots/community-discovery.png" alt="Gilbert Rift community discovery screen">
-      <br>
-      <sub><b>Build with people, too.</b> Communities connect conversations, channels, members, projects, events, polls, and planning.</sub>
-    </td>
-  </tr>
-</table>
+- macOS notifications now cover messages, mentions, task updates, and calls through one native
+  bridge. Notification destinations are restricted to validated in-app routes.
+- Quiet hours default to off. Existing accounts that still use the untouched shipped window are
+  migrated, while user-configured schedules are preserved.
+- Message threads group consecutive messages by author, add day boundaries, keep delivery state on
+  the newest outgoing message, and reserve attachment dimensions to avoid layout shifts.
+- Folders can be sent as traversal-safe ZIP archives and browsed as an expandable tree directly in
+  the conversation.
+- Group calls expose per-participant speaking state, and desktop notification audio resumes safely
+  when WebKit starts with a suspended audio context.
 
-## What you can do
+### Chat, Work, and runtime behavior
 
-### Work with AI on real projects
+- Gilbert Chat coalesces streamed text and reasoning updates on a fixed interval, reducing render
+  pressure without delaying terminal events.
+- Chat turns are serialized per conversation and have explicit cancellation and provider-stall
+  handling.
+- Work task presentation loads a bounded recent run window and paginates events instead of scaling
+  initial rendering with the complete task history.
+- Terminal sessions enforce a reconnect grace period and retain only a bounded replay window after
+  exit.
+- Provider catalogs, usage reporting, approvals, cancellation, and task-state presentation were
+  tightened across Codex, Claude, OpenCode, hosted providers, and local runtimes.
 
-- Start **Build**, **Investigate**, or **Review** tasks from a project-aware composer.
-- Use Agent, Plan, Goal, or Goal + Plan modes for quick changes or work that spans multiple turns.
-- Review tool activity, terminal output, file changes, Git status, progress steps, and generated images
-  without losing the conversation that produced them.
-- See provider responses and live tool output as they arrive, queue or steer follow-ups while work is
-  running, and return to long-running tasks later.
-- Answer provider questions directly in the active task composer and expand grouped tool summaries
-  when you need the original command, file, plugin, or image details.
-- Choose provider-native model, effort, and speed modes from one focused control, review proposed
-  file changes before approval, and keep task terminals available until you explicitly stop them.
-- Keep project-specific model and reasoning choices, generated task titles, and recoverable task
-  history across sessions.
+### Trusted backend and data layer
 
-### Choose the runtime that fits the job
+- Supabase JSON Web Key Sets are cached in an owner-only local file. A temporary identity-service
+  outage now returns a retryable response instead of invalidating an otherwise valid session.
+- Account exports stream a ZIP archive from bounded database pages and sanitized local-file paths,
+  avoiding whole-account buffering in memory.
+- Realtime subscriptions share a bounded handshake and remove failed channels so unsuccessful
+  subscriptions cannot leak resources.
+- Community content loading uses bounded queries and shared profile/reaction resolution. Supporting
+  migrations add channel-scoped access, durable bans, atomic poll votes, and bounded feed behavior.
+- Schedule staleness is evaluated against each schedule's timezone and cadence, including
+  daylight-saving transitions.
 
-- Connect OpenAI Codex, Anthropic Claude, OpenCode Zen, OpenRouter, DeepSeek, Kimi, xAI, Mistral
-  AI, and Google Gemini.
-- Add direct-provider API keys through encrypted account-scoped settings, then choose from each
-  provider's live model catalog.
-- Discover compatible local LM Studio and Ollama servers on your device or private network.
-- Select models, reasoning effort, permissions, and project scope per task instead of accepting a
-  hidden global default.
+[Read the complete 0.4.0 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.4.0)
 
-### Keep collaboration beside the code
+## Runtime architecture
 
-- Use direct and group messages with replies, reactions, attachments, voice notes, and presence.
-- Keep voice and video calls active while navigating, with title-bar controls and actionable native
-  incoming-call notifications.
-- Create communities with channels, members, events, polls, planner boards, and linked projects.
-- Organize projects, approvals, notifications, schedules, monitor tasks, and recurring AI work from
-  the same app.
+```mermaid
+flowchart LR
+    UI["Tauri 2 + Next.js desktop UI"] -->|authenticated loopback API| Service["Trusted Node.js service"]
+    Service --> Data["Account-scoped Prisma + SQLite data"]
+    Service --> Supabase["Supabase auth and collaboration"]
+    Service --> Providers["Codex, Claude, OpenCode, hosted and local runtimes"]
+    Releases["GitHub Releases + latest.json"] -->|signed update| UI
+```
 
-### Feel at home on macOS
+The webview never receives provider credentials or durable session secrets. Filesystem, database,
+provider-runtime, and authentication operations stay behind the trusted loopback service. Local
+records and runtime state are separated by authenticated account.
 
-- Native window behavior, appearance-aware icons, notifications, deep links, dock badges, and launch
-  settings.
-- A trusted local backend keeps provider credentials and session tokens outside the webview.
-- Account-scoped local project data and explicit permission profiles keep access understandable.
-- Signed and verified in-app update packages make later releases available inside Gilbert Rift.
+## Release pipeline
 
-## Download and install
+The `Publish desktop update` workflow accepts a stable version, source scope, immutable frontend and
+backend refs, and user-facing release notes. It then:
 
-| Platform                                     | Download                                                                                                                                     |
-| -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Apple silicon Mac — M1, M2, M3, M4, or newer | [Gilbert Rift 0.3.10 for Apple silicon](https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.3.10/Gilbert-Rift-0.3.10-aarch64.dmg) |
+1. Checks out both private source repositories with read-only deploy keys.
+2. Installs locked dependencies with Node.js 22.13 and prepares the Apple silicon Rust target.
+3. Verifies required Supabase and updater-signing credentials.
+4. Synchronizes the release version across JavaScript, Rust, and Tauri metadata.
+5. Builds the Tauri application with the ARM backend embedded in the desktop bundle.
+6. Signs the updater archive and uploads a draft GitHub Release.
+7. Validates that `latest.json` contains a signed `darwin-aarch64` entry for the requested version.
+8. Publishes the release only after every verification succeeds.
 
-> [!WARNING]
-> **Intel Macs are no longer supported.** Version 0.3.1 was the final Intel build. Version 0.3.2 and
-> all future releases are Apple silicon only, and Intel installations will not receive future
-> application updates.
+Failed or partial builds remain unpublished, so installed clients never discover an incomplete
+update. Published tags and artifacts are immutable; corrections use a higher semantic version.
 
-1. Download the package for your Mac.
-2. Open the DMG and drag **Gilbert Rift** into **Applications**.
-3. Launch Gilbert Rift.
-4. Sign in and connect the AI provider you want to use.
+## Platform and update support
 
-> [!IMPORTANT]
-> **Early-access signing notice**
->
-> Gilbert Rift is not currently signed with an Apple Developer ID or notarized by Apple. Signing and
-> notarization are planned for a near-future release. Until then, macOS may block the first launch or
-> show an unidentified-developer warning.
->
-> If that happens, open **System Settings → Privacy & Security**, find the message about Gilbert Rift,
-> choose **Open Anyway**, and confirm. Apple documents this process in
-> [Open apps safely on your Mac](https://support.apple.com/102445). Only install builds downloaded from
-> this official repository. In-app update packages are separately signed and verified; that updater
-> signature is not the same as Apple Developer ID signing or notarization.
+- macOS 13 Ventura or newer
+- Apple silicon (`aarch64`) only
+- Version 0.3.1 was the final Intel-compatible build
+- Signed Tauri updater archives for in-app installation
+- Existing 0.1.0 installations require one manual upgrade before in-app updates become available
 
-## Current release · 0.3.10
+The updater signature verifies artifact integrity and channel authenticity. It is separate from an
+Apple Developer ID signature and notarization. Until Developer ID distribution is enabled, macOS
+may require the user to approve the first launch through **System Settings → Privacy & Security**.
 
-Gilbert Rift 0.3.10 is the first major stability update for the desktop workspace. It focuses on the
-moments that matter most during real project work: keeping long chats responsive, preserving the
-right context when a model changes, showing trustworthy usage, and making sure a provider actually
-delivers a visible answer before a task is marked complete.
+## Source, licensing, and support
 
-### What is more reliable
+This repository does not publish the Gilbert Rift application source. Gilbert Rift, its binaries,
+branding, documentation, and release assets are proprietary software. Downloading an official build
+does not grant permission to copy, modify, redistribute, commercialize, or create derivative works.
+See [LICENSE.md](LICENSE.md) for the complete terms.
 
-- **Long Work chats stay responsive.** When a provider thread grows large enough to risk a slow cold
-  start, Rift moves the next turn to a fresh provider session and carries forward a bounded summary
-  of the durable conversation. The complete task history and artifacts remain in Rift.
-- **Provider and model changes keep continuity.** A task can move between models or providers without
-  reusing an incompatible native session. Earlier decisions remain available through the durable
-  history handoff.
-- **Every completed turn needs an answer.** If a provider stops after reasoning or tool activity,
-  Rift attempts to recover the final response. If the provider still returns nothing, the task shows
-  a clear retryable error instead of a misleading success.
-- **Context and cost numbers are steadier.** Child-agent work counts toward total usage without
-  replacing the parent task's context meter. Cache reads, cache writes, and recorded provider cost
-  are tracked separately.
-- **Live activity says what is happening.** Creating, editing, deleting, reading, and searching use
-  accurate in-progress and completed labels across Codex, Claude, and OpenCode-backed providers.
-- **Project history is easier to navigate.** Each project can load and collapse its own older chats,
-  and the model control no longer repeats a matching provider name.
-- **Provider compatibility is stronger.** Hosted and local runtimes use updated capability checks,
-  safer output limits, current Claude and OpenCode dependencies, and clearer vLLM tool requirements.
-
-### Coming next · Communities
-
-A major Communities update is coming in the next Gilbert Rift release. Version 0.3.10 intentionally
-strengthens Work, streaming, persistence, and provider behavior first so the next collaboration
-update arrives on a more dependable foundation.
-
-[Read the 0.3.10 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.10) ·
-[Browse every release](https://github.com/UrbanWafflezz/GilbertRift/releases)
-
-Users coming from 0.1.0 need to install a current build manually once. After that, Gilbert Rift can
-check for and install verified updates from inside the app.
-
-## Requirements
-
-- macOS 13 Ventura or later on Apple silicon (ARM)
-- A Gilbert Rift account
-- An internet connection for account, provider, update, and collaboration features
-- A supported provider sign-in or API key for the AI runtimes you choose to connect
-
-## About this repository
-
-This is the official public distribution home for Gilbert Rift. It contains release automation,
-download metadata, and this product page; the proprietary application source is not published here.
-
-Download Gilbert Rift only from this repository's [Releases](https://github.com/UrbanWafflezz/GilbertRift/releases)
-page. For bugs and product ideas, open an [issue](https://github.com/UrbanWafflezz/GilbertRift/issues).
-
-## Copyright and license
-
-Copyright © 2026 UrbanWafflezz. All rights reserved. Gilbert Rift, its official release packages,
-branding, visual assets, documentation, and other original material are proprietary and are not
-released under an open-source license. The limited permission to download, install, and use an
-official release does not transfer ownership or permit redistribution or derivative works. See
-[LICENSE.md](LICENSE.md) for the complete terms.
-
----
-
-<div align="center">
-
-**Gilbert Rift — turn ideas into finished work.**
-
-[Download 0.3.10](https://github.com/UrbanWafflezz/GilbertRift/releases/latest) ·
-[Release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.3.10) ·
-[Report an issue](https://github.com/UrbanWafflezz/GilbertRift/issues)
-
-</div>
+- [Release history](https://github.com/UrbanWafflezz/GilbertRift/releases)
+- [Report a bug or request a feature](https://github.com/UrbanWafflezz/GilbertRift/issues)
+- [Security guidance](https://github.com/UrbanWafflezz/GilbertRift/security)
