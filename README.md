@@ -69,8 +69,10 @@ to 1.0.
   required, and preserves an auditable approval history.
 - OpenCode permissions are normalized into Gilbert Rift's provider-neutral access model, including
   safe handling for child sessions and interactive questions.
-- Plan history, goal lifecycle, task drafts, provider activity, and side-panel behavior have been
-  tightened for long-running development sessions.
+- Goals expose durable pause and resume behavior with explicit terminal states, while Plan decisions
+  preserve revision history and stay visually anchored to the active task.
+- Queued follow-ups persist across navigation and restart and can be edited, reordered, sent next,
+  steered into an active response, or used to stop and replace the current response.
 
 ### Collaboration and provider infrastructure
 
