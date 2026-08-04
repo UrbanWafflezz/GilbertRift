@@ -143,12 +143,45 @@ jobs:
           npm --prefix Backend ci
           npm --prefix Backend run db:generate
 
+      - name: Prepare Linux AppImage tooling
+        if: matrix.platform == 'linux-x86_64'
+        env:
+          XDG_CACHE_HOME: ${{ runner.temp }}/xdg-cache
+        run: node frontend/scripts/prepare-linuxdeploy-tools.mjs
+
       - name: Build and sign the desktop bundles
         env:
           GILBERT_BUILD_ARCH: ${{ matrix.architecture }}
+          GILBERT_BACKEND_RUNTIME_SOURCE: ${{ github.workspace }}/frontend/src-tauri/backend-runtime
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          XDG_CACHE_HOME: ${{ runner.temp }}/xdg-cache
         run: npm --prefix frontend run app -- build --target "${{ matrix.target }}" --bundles "${{ matrix.bundles }}" --verbose
+
+      - name: Verify the portable Linux runtime
+        if: matrix.platform == 'linux-x86_64'
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          set -euo pipefail
+          image=$(find "frontend/src-tauri/target/${TARGET}/release/bundle" -type f -name '*.AppImage' -print -quit)
+          test -n "$image" || { echo "Missing AppImage for runtime verification."; exit 1; }
+          image=$(realpath "$image")
+          smoke="$RUNNER_TEMP/appimage-smoke"
+          mkdir -p "$smoke"
+          cd "$smoke"
+          chmod +x "$image"
+          "$image" --appimage-extract >/dev/null
+          source_runtime="$GITHUB_WORKSPACE/frontend/src-tauri/backend-runtime"
+          bundled_runtime=$(find squashfs-root/usr/lib -mindepth 2 -maxdepth 2 -type d -name backend-runtime -print -quit)
+          test -n "$bundled_runtime" || { echo "The AppImage is missing its backend runtime."; exit 1; }
+          cmp "$source_runtime/node" "$bundled_runtime/node"
+          cmp "$source_runtime/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude" "$bundled_runtime/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude"
+          cmp "$source_runtime/node_modules/opencode-ai/bin/opencode.exe" "$bundled_runtime/node_modules/opencode-ai/bin/opencode.exe"
+          "$bundled_runtime/node" --version
+          "$bundled_runtime/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude" --version
+          "$bundled_runtime/node_modules/.bin/opencode" --version
+          test -s "$bundled_runtime/node_modules/node-pty/build/Release/pty.node"
 
       - name: Collect and normalize release assets
         env:
