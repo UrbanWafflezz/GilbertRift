@@ -139,9 +139,9 @@ records and runtime state are separated by authenticated account.
 The `Publish desktop update` workflow accepts a stable version, source scope, immutable frontend and
 backend refs, and user-facing release notes. It then:
 
-1. Checks out both private source repositories with read-only credentials.
+1. Checks out both private source repositories with read-only deploy keys.
 2. Installs locked dependencies with Node.js 22.13 and prepares macOS aarch64 and Linux x86_64.
-3. Verifies the Supabase, GIPHY, backend-repository, and updater-signing credentials.
+3. Verifies the Supabase, GIPHY, and updater-signing credentials.
 4. Synchronizes the release version across JavaScript, Rust, and Tauri metadata.
 5. Builds each Tauri application with its architecture-matched backend embedded in the bundle.
 6. Produces the DMG, AppImage, DEB, RPM, signatures, and SHA-256 checksums.
