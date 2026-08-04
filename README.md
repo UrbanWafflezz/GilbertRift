@@ -29,7 +29,7 @@ artifact store and stable in-app update channel.
 
 | Channel                                                                                                             | Role                                                                       |
 | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| [Latest release](https://github.com/UrbanWafflezz/GilbertRift/releases/latest)                                      | macOS and Linux installers, portable bundles, checksums, and release notes |
+| [Latest release](https://github.com/UrbanWafflezz/GilbertRift/releases/latest)                                      | macOS and Linux downloads, checksums, and release notes                    |
 | [`latest.json`](https://github.com/UrbanWafflezz/GilbertRift/releases/latest/download/latest.json)                  | Signed Tauri updater manifest read by installed AppImage and macOS clients |
 | [Publish desktop update](https://github.com/UrbanWafflezz/GilbertRift/actions/workflows/publish-desktop-update.yml) | Controlled multi-platform build, signing, verification, and publication    |
 | [Issues](https://github.com/UrbanWafflezz/GilbertRift/issues)                                                       | Public bug reports and product feedback                                    |
@@ -43,7 +43,7 @@ desktop window behavior now run on 64-bit Intel and AMD Linux systems.
 - The portable `x86_64.AppImage` runs across supported distributions and receives signed in-app
   updates through `latest.json`.
 - The `amd64.deb` installs through APT on Ubuntu, Debian, Linux Mint, Pop!_OS, and compatible
-  distributions. An x86_64 RPM is also included for Fedora-family systems.
+  distributions. Fedora-family and other distributions use the AppImage.
 - Linux ARM64 is planned for a later release. Windows support is coming soon.
 
 [Read the complete 0.8.5 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.8.5)
@@ -90,15 +90,8 @@ Upgrade a DEB installation by downloading the newer DEB and running `sudo apt in
 again. Do not use the in-app AppImage installer for a DEB-managed copy; APT owns that installation.
 Remove it with `sudo apt remove gilbert-rift`.
 
-### Fedora, RHEL, Rocky Linux, AlmaLinux, and derivatives
-
-```bash
-curl -fLO \
-  https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.8.5/Gilbert-Rift-0.8.5-linux-x86_64.rpm
-sudo dnf install ./Gilbert-Rift-0.8.5-linux-x86_64.rpm
-```
-
-Install a newer RPM through `dnf` to upgrade it. Remove it with `sudo dnf remove gilbert-rift`.
+Fedora, RHEL, Rocky Linux, AlmaLinux, Arch, openSUSE, and other non-Debian distributions should use
+the AppImage instructions above.
 
 ### Verify a download
 
@@ -144,7 +137,7 @@ backend refs, and user-facing release notes. It then:
 3. Verifies the Supabase, GIPHY, and updater-signing credentials.
 4. Synchronizes the release version across JavaScript, Rust, and Tauri metadata.
 5. Builds each Tauri application with its architecture-matched backend embedded in the bundle.
-6. Produces the DMG, AppImage, DEB, RPM, signatures, and SHA-256 checksums.
+6. Produces the DMG, AppImage, DEB, signatures, and SHA-256 checksums.
 7. Validates signed `darwin-aarch64` and `linux-x86_64` updater entries and requires the Linux URL
    to end in `.AppImage`, never `.deb` or `.rpm`.
 8. Publishes the release only after every verification succeeds.
@@ -157,7 +150,7 @@ update. Published tags and artifacts are immutable; corrections use a higher sem
 - macOS 13 Ventura or newer
 - Apple silicon (`aarch64`) only
 - Linux x86_64/amd64 on distributions compatible with the Ubuntu 22.04 build baseline
-- AppImage in-app updates; DEB and RPM upgrades remain owned by the package manager
+- AppImage in-app updates; DEB upgrades remain owned by APT
 - Linux ARM64 planned for a later release
 - Windows support coming soon
 - Version 0.3.1 was the final Intel-compatible build

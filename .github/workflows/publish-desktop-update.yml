@@ -51,11 +51,13 @@ jobs:
         include:
           - label: macOS aarch64
             architecture: arm64
+            bundles: dmg
             platform: macos
             runner: macos-15
             target: aarch64-apple-darwin
           - label: Linux x86_64
             architecture: x64
+            bundles: appimage,deb
             platform: linux-x86_64
             runner: ubuntu-22.04
             target: x86_64-unknown-linux-gnu
@@ -146,7 +148,7 @@ jobs:
           GILBERT_BUILD_ARCH: ${{ matrix.architecture }}
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
-        run: npm --prefix frontend run app -- build --target "${{ matrix.target }}"
+        run: npm --prefix frontend run app -- build --target "${{ matrix.target }}" --bundles "${{ matrix.bundles }}" --verbose
 
       - name: Collect and normalize release assets
         env:
@@ -176,7 +178,6 @@ jobs:
               copy_one '*.AppImage' "Gilbert-Rift-${VERSION}-linux-x86_64.AppImage"
               copy_one '*.AppImage.sig' "Gilbert-Rift-${VERSION}-linux-x86_64.AppImage.sig"
               copy_one '*.deb' "Gilbert-Rift-${VERSION}-linux-amd64.deb"
-              copy_one '*.rpm' "Gilbert-Rift-${VERSION}-linux-x86_64.rpm"
               ;;
           esac
 
@@ -212,12 +213,11 @@ jobs:
             "Gilbert-Rift-${VERSION}-linux-x86_64.AppImage"
             "Gilbert-Rift-${VERSION}-linux-x86_64.AppImage.sig"
             "Gilbert-Rift-${VERSION}-linux-amd64.deb"
-            "Gilbert-Rift-${VERSION}-linux-x86_64.rpm"
           )
           for asset in "${expected[@]}"; do
             test -s "artifacts/$asset" || { echo "Missing or empty artifact: $asset"; exit 1; }
           done
-          test "$(find artifacts -maxdepth 1 -type f | wc -l | tr -d ' ')" = 7
+          test "$(find artifacts -maxdepth 1 -type f | wc -l | tr -d ' ')" = 6
           (cd artifacts && sha256sum Gilbert-Rift-* > SHA256SUMS.txt)
 
       - name: Generate and validate latest.json
