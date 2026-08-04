@@ -303,14 +303,12 @@ jobs:
         run: |
           set -euo pipefail
           tag="v${VERSION}"
+          title="Gilbert Rift ${VERSION}"
+          release_query=".[] | select(.tag_name == \"${tag}\" or (.draft == true and .name == \"${title}\")) | [.id, .draft] | @tsv"
           existing=$(gh api --paginate 'repos/UrbanWafflezz/GilbertRift/releases?per_page=100' \
-            --jq ".[] | select(.tag_name == \"${tag}\") | [.id, .draft] | @tsv" | head -n 1)
+            --jq "$release_query" | head -n 1)
 
-          if test -n "$existing"; then
-            release_id=${existing%%$'\t'*}
-            draft=${existing##*$'\t'}
-            test "$draft" = true || { echo "Published release ${tag} already exists and is immutable."; exit 1; }
-          else
+          if test -z "$existing"; then
             {
               printf '%s\n\n' "$RELEASE_NOTES"
               printf 'Update scope: %s\n' "$UPDATE_SCOPE"
@@ -321,12 +319,19 @@ jobs:
               --draft \
               --notes-file release-body.md \
               --target main \
-              --title "Gilbert Rift ${VERSION}"
-            release_id=$(gh api --paginate 'repos/UrbanWafflezz/GilbertRift/releases?per_page=100' \
-              --jq ".[] | select(.tag_name == \"${tag}\" and .draft == true) | .id" | head -n 1)
+              --title "$title"
+            for attempt in {1..10}; do
+              existing=$(gh api --paginate 'repos/UrbanWafflezz/GilbertRift/releases?per_page=100' \
+                --jq "$release_query" | head -n 1)
+              test -n "$existing" && break
+              sleep 2
+            done
           fi
 
-          test -n "$release_id" || { echo "Draft release ${tag} is missing."; exit 1; }
+          test -n "$existing" || { echo "Draft release ${tag} is missing."; exit 1; }
+          release_id=${existing%%$'\t'*}
+          draft=${existing##*$'\t'}
+          test "$draft" = true || { echo "Published release ${tag} already exists and is immutable."; exit 1; }
           gh release upload "$tag" artifacts/* --clobber
 
           asset_names=$(gh api "repos/UrbanWafflezz/GilbertRift/releases/${release_id}/assets" --jq '.[].name')
