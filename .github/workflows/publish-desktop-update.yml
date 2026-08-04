@@ -32,121 +32,278 @@ on:
 
 concurrency:
   cancel-in-progress: false
-  group: desktop-release-${{ inputs.version || github.ref_name }}
+  group: desktop-release-${{ inputs.version }}
 
 permissions:
   contents: write
 
+env:
+  NODE_VERSION: "22.13.0"
+  VERSION: ${{ inputs.version }}
+
 jobs:
   build:
-    name: Build Apple Silicon
-    runs-on: macos-14
+    name: Build ${{ matrix.label }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: macOS aarch64
+            architecture: arm64
+            platform: macos
+            runner: macos-15
+            target: aarch64-apple-darwin
+          - label: Linux x86_64
+            architecture: x64
+            platform: linux-x86_64
+            runner: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
     steps:
       - name: Check out frontend source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: UrbanWafflezz/GilbertRift-Frontend
-          path: front end
-          ref: ${{ inputs.frontend_ref || 'main' }}
+          path: frontend
+          ref: ${{ inputs.frontend_ref }}
           ssh-key: ${{ secrets.FRONTEND_DEPLOY_KEY }}
           persist-credentials: false
 
       - name: Check out backend source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: Backend
-          ref: ${{ inputs.backend_ref || 'main' }}
+          ref: ${{ inputs.backend_ref }}
           repository: UrbanWafflezz/GilbertRift-Backend
-          ssh-key: ${{ secrets.BACKEND_DEPLOY_KEY }}
+          token: ${{ secrets.BACKEND_REPOSITORY_TOKEN }}
           persist-credentials: false
 
+      - name: Install the Linux desktop toolchain
+        if: startsWith(matrix.platform, 'linux-')
+        uses: ./frontend/.github/actions/linux-desktop-toolchain
+
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           cache: npm
           cache-dependency-path: |
-            front end/package-lock.json
+            frontend/package-lock.json
             Backend/package-lock.json
-          node-version: 22.13.0
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: aarch64-apple-darwin
+          targets: ${{ matrix.target }}
 
-      - name: Install source dependencies
-        run: |
-          npm --prefix "front end" ci
-          npm --prefix Backend ci
-          npm --prefix Backend run db:generate
+      - name: Cache Rust builds
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: frontend/src-tauri -> target
+          key: ${{ matrix.target }}
 
       - name: Validate release credentials
         env:
+          GIPHY_API_KEY: ${{ secrets.NEXT_PUBLIC_GIPHY_API_KEY }}
           SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-        run: |
-          test -n "$SUPABASE_URL" || { echo "SUPABASE_URL is required."; exit 1; }
-          test -n "$SUPABASE_PUBLISHABLE_KEY" || { echo "SUPABASE_PUBLISHABLE_KEY is required."; exit 1; }
-          test -n "$TAURI_SIGNING_PRIVATE_KEY" || { echo "TAURI_SIGNING_PRIVATE_KEY is required."; exit 1; }
-
-      - name: Prepare release metadata
-        env:
-          RELEASE_VERSION: ${{ inputs.version || github.ref_name }}
-          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        run: |
-          umask 077
-          printf 'SUPABASE_URL=%s\nSUPABASE_PUBLISHABLE_KEY=%s\n' "$SUPABASE_URL" "$SUPABASE_PUBLISHABLE_KEY" > Backend/.env
-          npm --prefix "front end" run release:version -- "$RELEASE_VERSION"
-
-      - name: Build, sign, and upload draft release
-        uses: tauri-apps/tauri-action@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          GILBERT_BUILD_ARCH: arm64
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
-        with:
-          args: --target aarch64-apple-darwin
-          owner: UrbanWafflezz
-          projectPath: front end
-          prerelease: false
-          releaseAssetNamePattern: Gilbert-Rift-[version]-[arch][ext]
-          releaseBody: |
-            ${{ inputs.release_notes || 'Apple silicon release with reliability, performance, and collaboration improvements. Intel Macs are no longer supported beginning with version 0.3.2.' }}
+        run: |
+          set -euo pipefail
+          test -n "$SUPABASE_URL" || { echo "SUPABASE_URL is required."; exit 1; }
+          test -n "$SUPABASE_PUBLISHABLE_KEY" || { echo "SUPABASE_PUBLISHABLE_KEY is required."; exit 1; }
+          test -n "$GIPHY_API_KEY" || { echo "NEXT_PUBLIC_GIPHY_API_KEY is required."; exit 1; }
+          test -n "$TAURI_SIGNING_PRIVATE_KEY" || { echo "TAURI_SIGNING_PRIVATE_KEY is required."; exit 1; }
+          test -n "$TAURI_SIGNING_PRIVATE_KEY_PASSWORD" || { echo "TAURI_SIGNING_PRIVATE_KEY_PASSWORD is required."; exit 1; }
 
-            Update scope: ${{ inputs.update_scope || 'both' }}
-            Frontend source: ${{ inputs.frontend_ref || 'main' }}
-            Backend source: ${{ inputs.backend_ref || 'main' }}
-          releaseCommitish: main
-          releaseDraft: true
-          releaseName: Gilbert Rift __VERSION__
-          repo: GilbertRift
-          retryAttempts: 2
-          tagName: v__VERSION__
-          tauriScript: npm run app
-          uploadUpdaterJson: true
-          uploadUpdaterSignatures: true
+      - name: Prepare release metadata and environment
+        env:
+          GIPHY_API_KEY: ${{ secrets.NEXT_PUBLIC_GIPHY_API_KEY }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        run: |
+          set -euo pipefail
+          umask 077
+          {
+            printf 'DATABASE_URL=file:./gilbert-rift.db\n'
+            printf 'SUPABASE_URL=%s\n' "$SUPABASE_URL"
+            printf 'SUPABASE_PUBLISHABLE_KEY=%s\n' "$SUPABASE_PUBLISHABLE_KEY"
+          } > Backend/.env
+          printf 'NEXT_PUBLIC_GIPHY_API_KEY=%s\n' "$GIPHY_API_KEY" > frontend/.env.local
+          npm --prefix frontend run release:version -- "$VERSION"
+
+      - name: Install locked source dependencies
+        run: |
+          set -euo pipefail
+          npm --prefix frontend ci
+          npm --prefix Backend ci
+          npm --prefix Backend run db:generate
+
+      - name: Build and sign the desktop bundles
+        env:
+          GILBERT_BUILD_ARCH: ${{ matrix.architecture }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        run: npm --prefix frontend run app -- build --target "${{ matrix.target }}"
+
+      - name: Collect and normalize release assets
+        env:
+          PLATFORM: ${{ matrix.platform }}
+          TARGET: ${{ matrix.target }}
+        run: |
+          set -euo pipefail
+          bundle_dir="frontend/src-tauri/target/${TARGET}/release/bundle"
+          destination="$RUNNER_TEMP/release-assets"
+          mkdir -p "$destination"
+
+          copy_one() {
+            pattern=$1
+            output=$2
+            source=$(find "$bundle_dir" -type f -name "$pattern" -print -quit)
+            test -n "$source" || { echo "Missing ${pattern} in ${bundle_dir}."; exit 1; }
+            cp "$source" "$destination/$output"
+          }
+
+          case "$PLATFORM" in
+            macos)
+              copy_one '*.dmg' "Gilbert-Rift-${VERSION}-macOS-aarch64.dmg"
+              copy_one '*.app.tar.gz' "Gilbert-Rift-${VERSION}-macOS-aarch64.app.tar.gz"
+              copy_one '*.app.tar.gz.sig' "Gilbert-Rift-${VERSION}-macOS-aarch64.app.tar.gz.sig"
+              ;;
+            linux-x86_64)
+              copy_one '*.AppImage' "Gilbert-Rift-${VERSION}-linux-x86_64.AppImage"
+              copy_one '*.AppImage.sig' "Gilbert-Rift-${VERSION}-linux-x86_64.AppImage.sig"
+              copy_one '*.deb' "Gilbert-Rift-${VERSION}-linux-amd64.deb"
+              copy_one '*.rpm' "Gilbert-Rift-${VERSION}-linux-x86_64.rpm"
+              ;;
+          esac
+
+          find "$destination" -maxdepth 1 -type f -print
+
+      - name: Upload build outputs
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-${{ matrix.platform }}
+          path: ${{ runner.temp }}/release-assets/*
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
 
   publish:
-    name: Verify and publish
+    name: Verify and publish v${{ inputs.version }}
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - name: Verify updater manifest and publish release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ inputs.version || github.ref_name }}
+      - name: Download every platform build
+        uses: actions/download-artifact@v7
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Validate artifacts and create checksums
         run: |
-          release_id=$(gh api --paginate "repos/UrbanWafflezz/GilbertRift/releases?per_page=100" --jq ".[] | select(.draft == true and (.tag_name == \"v${VERSION}\" or .name == \"Gilbert Rift ${VERSION}\")) | .id" | head -n 1)
-          test -n "$release_id" || { echo "Draft release v${VERSION} is missing."; exit 1; }
-          manifest_api=$(gh api "repos/UrbanWafflezz/GilbertRift/releases/${release_id}/assets" --jq '.[] | select(.name == "latest.json") | .url')
-          test -n "$manifest_api" || { echo "latest.json is missing."; exit 1; }
-          gh api "$manifest_api" -H "Accept: application/octet-stream" > latest.json
+          set -euo pipefail
+          expected=(
+            "Gilbert-Rift-${VERSION}-macOS-aarch64.dmg"
+            "Gilbert-Rift-${VERSION}-macOS-aarch64.app.tar.gz"
+            "Gilbert-Rift-${VERSION}-macOS-aarch64.app.tar.gz.sig"
+            "Gilbert-Rift-${VERSION}-linux-x86_64.AppImage"
+            "Gilbert-Rift-${VERSION}-linux-x86_64.AppImage.sig"
+            "Gilbert-Rift-${VERSION}-linux-amd64.deb"
+            "Gilbert-Rift-${VERSION}-linux-x86_64.rpm"
+          )
+          for asset in "${expected[@]}"; do
+            test -s "artifacts/$asset" || { echo "Missing or empty artifact: $asset"; exit 1; }
+          done
+          test "$(find artifacts -maxdepth 1 -type f | wc -l | tr -d ' ')" = 7
+          (cd artifacts && sha256sum Gilbert-Rift-* > SHA256SUMS.txt)
+
+      - name: Generate and validate latest.json
+        env:
+          RELEASE_NOTES: ${{ inputs.release_notes }}
+        run: |
+          set -euo pipefail
+          base_url="https://github.com/UrbanWafflezz/GilbertRift/releases/download/v${VERSION}"
+          mac_signature=$(tr -d '\r\n' < "artifacts/Gilbert-Rift-${VERSION}-macOS-aarch64.app.tar.gz.sig")
+          linux_x64_signature=$(tr -d '\r\n' < "artifacts/Gilbert-Rift-${VERSION}-linux-x86_64.AppImage.sig")
+
+          jq -n \
+            --arg version "$VERSION" \
+            --arg notes "$RELEASE_NOTES" \
+            --arg pub_date "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+            --arg mac_url "$base_url/Gilbert-Rift-${VERSION}-macOS-aarch64.app.tar.gz" \
+            --arg mac_signature "$mac_signature" \
+            --arg linux_x64_url "$base_url/Gilbert-Rift-${VERSION}-linux-x86_64.AppImage" \
+            --arg linux_x64_signature "$linux_x64_signature" \
+            '{
+              version: $version,
+              notes: $notes,
+              pub_date: $pub_date,
+              platforms: {
+                "darwin-aarch64": { url: $mac_url, signature: $mac_signature },
+                "linux-x86_64": { url: $linux_x64_url, signature: $linux_x64_signature }
+              }
+            }' > artifacts/latest.json
+
           jq -e '
             .version == env.VERSION and
-            (.platforms["darwin-aarch64"].url | length > 0) and
-            (.platforms["darwin-aarch64"].signature | length > 0)
-          ' latest.json
-          gh api --method PATCH "repos/UrbanWafflezz/GilbertRift/releases/${release_id}" -F draft=false -F prerelease=false
+            (.platforms | keys | sort) == ["darwin-aarch64", "linux-x86_64"] and
+            (.platforms["darwin-aarch64"].url | endswith(".app.tar.gz")) and
+            (.platforms["linux-x86_64"].url | endswith(".AppImage")) and
+            ([.platforms[].signature | length > 0] | all)
+          ' artifacts/latest.json
+          if jq -e '[.platforms[].url | test("\\.(deb|rpm)$")] | any' artifacts/latest.json; then
+            echo "Package-manager bundles must never be used as updater URLs."
+            exit 1
+          fi
+
+      - name: Create draft release, upload assets, and publish
+        env:
+          BACKEND_REF: ${{ inputs.backend_ref }}
+          FRONTEND_REF: ${{ inputs.frontend_ref }}
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_NOTES: ${{ inputs.release_notes }}
+          UPDATE_SCOPE: ${{ inputs.update_scope }}
+        run: |
+          set -euo pipefail
+          tag="v${VERSION}"
+          existing=$(gh api --paginate 'repos/UrbanWafflezz/GilbertRift/releases?per_page=100' \
+            --jq ".[] | select(.tag_name == \"${tag}\") | [.id, .draft] | @tsv" | head -n 1)
+
+          if test -n "$existing"; then
+            release_id=${existing%%$'\t'*}
+            draft=${existing##*$'\t'}
+            test "$draft" = true || { echo "Published release ${tag} already exists and is immutable."; exit 1; }
+          else
+            {
+              printf '%s\n\n' "$RELEASE_NOTES"
+              printf 'Update scope: %s\n' "$UPDATE_SCOPE"
+              printf 'Frontend source: %s\n' "$FRONTEND_REF"
+              printf 'Backend source: %s\n' "$BACKEND_REF"
+            } > release-body.md
+            gh release create "$tag" \
+              --draft \
+              --notes-file release-body.md \
+              --target main \
+              --title "Gilbert Rift ${VERSION}"
+            release_id=$(gh api --paginate 'repos/UrbanWafflezz/GilbertRift/releases?per_page=100' \
+              --jq ".[] | select(.tag_name == \"${tag}\" and .draft == true) | .id" | head -n 1)
+          fi
+
+          test -n "$release_id" || { echo "Draft release ${tag} is missing."; exit 1; }
+          gh release upload "$tag" artifacts/* --clobber
+
+          asset_names=$(gh api "repos/UrbanWafflezz/GilbertRift/releases/${release_id}/assets" --jq '.[].name')
+          for asset in artifacts/*; do
+            name=${asset##*/}
+            grep -Fxq "$name" <<< "$asset_names" || { echo "Release asset upload missing: $name"; exit 1; }
+          done
+
+          gh api --method PATCH "repos/UrbanWafflezz/GilbertRift/releases/${release_id}" \
+            -F draft=false \
+            -F prerelease=false >/dev/null
+
+          published=$(gh api "repos/UrbanWafflezz/GilbertRift/releases/${release_id}" --jq '.draft == false and .prerelease == false')
+          test "$published" = true || { echo "Release ${tag} was not published."; exit 1; }

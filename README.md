@@ -12,6 +12,8 @@
 [![Publish desktop update](https://github.com/UrbanWafflezz/GilbertRift/actions/workflows/publish-desktop-update.yml/badge.svg)](https://github.com/UrbanWafflezz/GilbertRift/actions/workflows/publish-desktop-update.yml)
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?logo=apple)
 ![Apple silicon](https://img.shields.io/badge/architecture-Apple%20silicon-2563EB)
+![Linux x86_64](https://img.shields.io/badge/Linux-x86__64-FCC624?logo=linux&logoColor=111827)
+![Windows coming soon](https://img.shields.io/badge/Windows-coming%20soon-0078D4?logo=windows)
 
 </div>
 
@@ -25,71 +27,97 @@ The proprietary frontend and trusted backend source live in separate private rep
 downloads are presented through the Gilbert Rift website; GitHub Releases remains the authoritative
 artifact store and stable in-app update channel.
 
-| Channel                                                                                                             | Role                                                                    |
-| ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| [Latest release](https://github.com/UrbanWafflezz/GilbertRift/releases/latest)                                      | Published macOS package, updater archive, signatures, and release notes |
-| [`latest.json`](https://github.com/UrbanWafflezz/GilbertRift/releases/latest/download/latest.json)                  | Tauri updater manifest read by installed clients                        |
-| [Publish desktop update](https://github.com/UrbanWafflezz/GilbertRift/actions/workflows/publish-desktop-update.yml) | Controlled build, signing, verification, and publication pipeline       |
-| [Issues](https://github.com/UrbanWafflezz/GilbertRift/issues)                                                       | Public bug reports and product feedback                                 |
+| Channel                                                                                                             | Role                                                                       |
+| ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| [Latest release](https://github.com/UrbanWafflezz/GilbertRift/releases/latest)                                      | macOS and Linux installers, portable bundles, checksums, and release notes |
+| [`latest.json`](https://github.com/UrbanWafflezz/GilbertRift/releases/latest/download/latest.json)                  | Signed Tauri updater manifest read by installed AppImage and macOS clients |
+| [Publish desktop update](https://github.com/UrbanWafflezz/GilbertRift/actions/workflows/publish-desktop-update.yml) | Controlled multi-platform build, signing, verification, and publication    |
+| [Issues](https://github.com/UrbanWafflezz/GilbertRift/issues)                                                       | Public bug reports and product feedback                                    |
 
-## Current release: 0.8.0
+## Current release: 0.8.5
 
-Version 0.8.0 is Gilbert Rift's near-complete product milestone. The desktop application now keeps
-long-running work alive in the background, unifies scheduled and state-triggered automation, and
-finishes the core collaboration, terminal, approval, and runtime experiences required for the road
-to 1.0.
+Version 0.8.5 adds the first supported Linux desktop release. The same trusted local backend, Work
+terminal, native notifications, file integration, background-task controls, signed update UI, and
+desktop window behavior now run on 64-bit Intel and AMD Linux systems.
 
-### Desktop continuity
+- The portable `x86_64.AppImage` runs across supported distributions and receives signed in-app
+  updates through `latest.json`.
+- The `amd64.deb` installs through APT on Ubuntu, Debian, Linux Mint, Pop!_OS, and compatible
+  distributions. An x86_64 RPM is also included for Fedora-family systems.
+- Linux ARM64 is planned for a later release. Windows support is coming soon.
 
-- Closing the main window can keep Gilbert Rift available from a native macOS menu-bar control,
-  with explicit reopen and quit actions.
-- Active Work, Scheduled, and monitoring sessions prevent macOS App Nap from silently suspending
-  time-sensitive execution.
-- Background task completion is surfaced through a shared in-app and native notification contract,
-  with validated destinations and consistent run status.
-- Desktop preferences control launch-at-login and background behavior without weakening the
-  trusted local-service boundary.
+[Read the complete 0.8.5 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.8.5)
 
-### Automation and task operations
+## Download and install
 
-- Scheduled runs and project monitors execute through one authenticated background-session service
-  and remain isolated by account.
-- Tasks now separates time-triggered automation from state-triggered monitoring while preserving a
-  single operational history and status vocabulary.
-- Schedule destinations, ordering, run history, result rendering, deletion, and recovery behavior
-  are fully manageable from the desktop client.
-- Work tasks carry an explicit origin, allowing normal conversations, scheduled executions, and
-  monitoring runs to be presented and resumed correctly.
+First check the machine architecture:
 
-### Work runtime and safety
+```bash
+uname -m
+```
 
-- Work terminals now use real persistent PTY sessions, start a login shell in the selected project,
-  survive panel disconnection, replay bounded output, and terminate with their owning task.
-- Approval review classifies command and file operations by risk, explains why confirmation is
-  required, preserves an auditable approval history, and keeps every pending file decision visible
-  without falling back to an unrelated file operation.
-- OpenCode permissions are normalized into Gilbert Rift's provider-neutral access model, including
-  safe handling for child sessions and interactive questions.
-- Goals expose durable pause and resume behavior with explicit terminal states, while Plan decisions
-  preserve revision history and stay visually anchored to the active task.
-- Queued follow-ups persist across navigation and restart and can be edited, reordered, sent next,
-  steered into an active response, or used to stop and replace the current response.
+Version 0.8.5 supports `x86_64`. Debian tools call that same architecture `amd64`. If the command
+prints `aarch64` or `arm64`, use the web version for now and wait for the later Linux ARM release.
 
-### Collaboration and provider infrastructure
+### Linux AppImage — recommended portable download
 
-- Communities has a refined directory, channel conversation model, member and role controls,
-  invitations, polls, notification defaults, and responsive workspace layout.
-- Hosted model capabilities and context limits are sourced through a maintained model catalog
-  instead of relying on artificial output caps.
-- Account-scoped background state, schedule reconciliation, community defaults, and task origins are
-  backed by explicit schema migrations and bounded service contracts.
-- Provider and runtime behavior remains isolated behind the trusted backend for Codex, Claude,
-  OpenCode, hosted APIs, and local models.
+The AppImage is the best choice for most x86_64 Linux systems and is the Linux format supported by
+Gilbert Rift's in-app updater.
 
-The core product is now functionally complete. The remaining work before 1.0 is focused on final
-polish, production hardening, and distribution quality rather than missing primary workflows.
+```bash
+mkdir -p "$HOME/.local/bin"
+curl -fL \
+  -o "$HOME/.local/bin/Gilbert-Rift.AppImage" \
+  https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.8.5/Gilbert-Rift-0.8.5-linux-x86_64.AppImage
+chmod +x "$HOME/.local/bin/Gilbert-Rift.AppImage"
+"$HOME/.local/bin/Gilbert-Rift.AppImage"
+```
 
-[Read the complete 0.8.0 release notes](https://github.com/UrbanWafflezz/GilbertRift/releases/tag/v0.8.0)
+Keep the AppImage in a user-writable location such as `~/.local/bin`; the updater replaces that file
+in place after verifying its Tauri signature. Downloading a newer AppImage manually is also safe.
+
+### Ubuntu, Debian, Linux Mint, Pop!_OS, and derivatives
+
+Use the native `amd64.deb` for an application-menu entry and package-manager ownership:
+
+```bash
+curl -fLO \
+  https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.8.5/Gilbert-Rift-0.8.5-linux-amd64.deb
+sudo apt install ./Gilbert-Rift-0.8.5-linux-amd64.deb
+```
+
+Upgrade a DEB installation by downloading the newer DEB and running `sudo apt install ./<file>.deb`
+again. Do not use the in-app AppImage installer for a DEB-managed copy; APT owns that installation.
+Remove it with `sudo apt remove gilbert-rift`.
+
+### Fedora, RHEL, Rocky Linux, AlmaLinux, and derivatives
+
+```bash
+curl -fLO \
+  https://github.com/UrbanWafflezz/GilbertRift/releases/download/v0.8.5/Gilbert-Rift-0.8.5-linux-x86_64.rpm
+sudo dnf install ./Gilbert-Rift-0.8.5-linux-x86_64.rpm
+```
+
+Install a newer RPM through `dnf` to upgrade it. Remove it with `sudo dnf remove gilbert-rift`.
+
+### Verify a download
+
+Every release includes `SHA256SUMS.txt`. Download it beside the installer, then run:
+
+```bash
+sha256sum --ignore-missing --check SHA256SUMS.txt
+```
+
+The selected file must report `OK`. In-app updates additionally verify the artifact against the
+updater public key compiled into Gilbert Rift.
+
+### macOS
+
+Apple silicon Macs running macOS 13 or newer should download the `macOS-aarch64.dmg`, open it, and
+drag Gilbert Rift to Applications. Intel Macs are not supported after version 0.3.1.
+
+> [!NOTE]
+> **Windows is coming soon.** Version 0.8.5 does not include a Windows installer.
 
 ## Runtime architecture
 
@@ -111,13 +139,14 @@ records and runtime state are separated by authenticated account.
 The `Publish desktop update` workflow accepts a stable version, source scope, immutable frontend and
 backend refs, and user-facing release notes. It then:
 
-1. Checks out both private source repositories with read-only deploy keys.
-2. Installs locked dependencies with Node.js 22.13 and prepares the Apple silicon Rust target.
-3. Verifies required Supabase and updater-signing credentials.
+1. Checks out both private source repositories with read-only credentials.
+2. Installs locked dependencies with Node.js 22.13 and prepares macOS aarch64 and Linux x86_64.
+3. Verifies the Supabase, GIPHY, backend-repository, and updater-signing credentials.
 4. Synchronizes the release version across JavaScript, Rust, and Tauri metadata.
-5. Builds the Tauri application with the ARM backend embedded in the desktop bundle.
-6. Signs the updater archive and uploads a draft GitHub Release.
-7. Validates that `latest.json` contains a signed `darwin-aarch64` entry for the requested version.
+5. Builds each Tauri application with its architecture-matched backend embedded in the bundle.
+6. Produces the DMG, AppImage, DEB, RPM, signatures, and SHA-256 checksums.
+7. Validates signed `darwin-aarch64` and `linux-x86_64` updater entries and requires the Linux URL
+   to end in `.AppImage`, never `.deb` or `.rpm`.
 8. Publishes the release only after every verification succeeds.
 
 Failed or partial builds remain unpublished, so installed clients never discover an incomplete
@@ -127,6 +156,10 @@ update. Published tags and artifacts are immutable; corrections use a higher sem
 
 - macOS 13 Ventura or newer
 - Apple silicon (`aarch64`) only
+- Linux x86_64/amd64 on distributions compatible with the Ubuntu 22.04 build baseline
+- AppImage in-app updates; DEB and RPM upgrades remain owned by the package manager
+- Linux ARM64 planned for a later release
+- Windows support coming soon
 - Version 0.3.1 was the final Intel-compatible build
 - Signed Tauri updater archives for in-app installation
 - Existing 0.1.0 installations require one manual upgrade before in-app updates become available
