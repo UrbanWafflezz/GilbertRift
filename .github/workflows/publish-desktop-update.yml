@@ -51,7 +51,7 @@ jobs:
         include:
           - label: macOS aarch64
             architecture: arm64
-            bundles: dmg
+            bundles: app,dmg
             platform: macos
             runner: macos-15
             target: aarch64-apple-darwin
